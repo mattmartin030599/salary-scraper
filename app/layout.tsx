@@ -12,18 +12,46 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Salary Scraper — Reveal Hidden Seek Salaries',
+  metadataBase: new URL('https://salaryscraper.com'),
+  title: {
+    default: 'Salary Scraper — Reveal Hidden Seek Salaries',
+    template: '%s — Salary Scraper',
+  },
   description:
-    'Paste any Seek job URL and instantly reveal the hidden salary range stored by the employer. Free, fast, no account required.',
+    'Paste any Seek job URL and instantly reveal the hidden salary range. Free salary checker for Australian and NZ job seekers. No account required.',
+  keywords: [
+    'seek salary',
+    'seek salary reveal',
+    'hidden salary seek',
+    'seek job salary checker',
+    'reveal salary seek australia',
+    'seek salary estimator',
+    'australian salary guide',
+    'new zealand salary guide',
+    'salary transparency',
+    'salary scraper',
+  ],
   openGraph: {
     title: 'Salary Scraper — Reveal Hidden Seek Salaries',
-    description: 'Find out what a Seek job really pays — even when no salary is shown.',
+    description: 'Find out what a Seek job really pays — even when no salary is shown. Free salary checker for AU & NZ.',
     type: 'website',
+    url: 'https://salaryscraper.com',
+    siteName: 'Salary Scraper',
+    images: [{ url: '/logo.png', width: 512, height: 512, alt: 'Salary Scraper' }],
   },
   twitter: {
     card: 'summary',
-    title: 'Salary Scraper',
-    description: 'Reveal hidden salary ranges on Seek job listings.',
+    title: 'Salary Scraper — Reveal Hidden Seek Salaries',
+    description: 'Paste a Seek job URL and reveal the hidden salary. Free, no login needed.',
+    images: ['/logo.png'],
+  },
+  alternates: {
+    canonical: 'https://salaryscraper.com',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
   },
 }
 

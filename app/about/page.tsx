@@ -2,8 +2,15 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'About — Salary Scraper',
-  description: 'Learn how Salary Scraper reveals hidden salary data from Seek job listings.',
+  title: 'About — How Salary Scraper Works',
+  description:
+    'Learn how Salary Scraper reveals the salary Seek employers hide from job listings, using binary search against Seek\'s own salary filter API.',
+  alternates: { canonical: 'https://salaryscraper.com/about' },
+  openGraph: {
+    title: 'About — How Salary Scraper Works',
+    description: 'How we reveal hidden Seek salaries using binary search against Seek\'s internal filter API.',
+    url: 'https://salaryscraper.com/about',
+  },
 }
 
 const HOW_IT_WORKS_STEPS = [

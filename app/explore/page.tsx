@@ -1,9 +1,17 @@
 import type { Metadata } from 'next'
 import AdUnit from '@/components/AdUnit'
+import { AD_SLOTS } from '@/lib/adSlots'
 
 export const metadata: Metadata = {
-  title: 'Industry Salaries — Salary Scraper',
-  description: 'Browse typical salary ranges by industry across Australia and New Zealand.',
+  title: 'Industry Salary Ranges — Australia & New Zealand',
+  description:
+    'Browse typical salary ranges by industry across Australia and New Zealand. Tech, finance, healthcare, engineering, legal, trades and more.',
+  alternates: { canonical: 'https://salaryscraper.com/explore' },
+  openGraph: {
+    title: 'Industry Salary Ranges — Australia & New Zealand',
+    description: 'Typical salary ranges for 40+ roles across 8 industries in AU & NZ.',
+    url: 'https://salaryscraper.com/explore',
+  },
 }
 
 const INDUSTRIES = [
@@ -166,7 +174,7 @@ export default function ExplorePage() {
               </div>
             </section>
             {idx === 1 && (
-              <AdUnit slot="1122334455" format="auto" className="min-h-[100px] rounded-xl overflow-hidden" />
+              <AdUnit slot={AD_SLOTS.EXPLORE_MID} format="auto" className="min-h-[100px] rounded-xl overflow-hidden" />
             )}
             </div>
           ))}

@@ -1,13 +1,61 @@
+import type { Metadata } from 'next'
 import SalaryLookup      from '@/components/SalaryLookup'
 import DonationBanner    from '@/components/DonationBanner'
 import YourRecentLookups from '@/components/YourRecentLookups'
 import RecentLookups     from '@/components/RecentLookups'
 import AdUnit            from '@/components/AdUnit'
 import FAQ               from '@/components/FAQ'
+import { AD_SLOTS }      from '@/lib/adSlots'
+
+export const metadata: Metadata = {
+  title: 'Salary Scraper — Reveal Hidden Seek Salaries',
+  description:
+    'Paste any Seek job URL and instantly reveal the hidden salary range. Free salary checker for Australian and NZ job seekers. No account required.',
+  alternates: { canonical: 'https://salaryscraper.com' },
+}
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://salaryscraper.com/#website',
+      url: 'https://salaryscraper.com',
+      name: 'Salary Scraper',
+      description: 'Reveal hidden salary ranges on Seek job listings.',
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: { '@type': 'EntryPoint', urlTemplate: 'https://salaryscraper.com/?url={search_term_string}' },
+        'query-input': 'required name=search_term_string',
+      },
+    },
+    {
+      '@type': 'WebApplication',
+      '@id': 'https://salaryscraper.com/#webapp',
+      name: 'Salary Scraper',
+      url: 'https://salaryscraper.com',
+      description:
+        'Free tool that reveals hidden salary data from Seek job listings using binary search against Seek\'s internal salary filter API.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'AUD' },
+      featureList: [
+        'Reveal hidden Seek salary ranges',
+        'Take-home pay calculator',
+        'Salary history tracking',
+        'Australian & New Zealand salary data',
+      ],
+    },
+  ],
+}
 
 export default function Home() {
   return (
     <main className="flex-1 flex flex-col items-center px-4 py-16 sm:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
       {/* Logo / wordmark */}
       <div className="mb-10 text-center">
@@ -47,7 +95,7 @@ export default function Home() {
 
       {/* Mid-page ad — browse zone between content sections */}
       <div className="w-full max-w-xl mt-12">
-        <AdUnit slot="0987654321" format="horizontal" className="min-h-[90px]" />
+        <AdUnit slot={AD_SLOTS.HOME_MID} format="horizontal" className="min-h-[90px]" />
       </div>
 
       {/* How it works */}

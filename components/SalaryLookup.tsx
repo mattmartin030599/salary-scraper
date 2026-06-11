@@ -5,6 +5,7 @@ import ResultCard from './ResultCard'
 import AppStoreBadges from './AppStoreBadges'
 import AdUnit from './AdUnit'
 import { saveMyLookup } from './YourRecentLookups'
+import { AD_SLOTS } from '@/lib/adSlots'
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -321,7 +322,7 @@ export default function SalaryLookup() {
         <div className="animate-fadeIn">
           <ResultCard {...result} />
           {/* Ad — shown after the user gets their result */}
-          <AdUnit slot="1234567890" format="auto" className="mt-6 min-h-[100px]" />
+          <AdUnit slot={AD_SLOTS.RESULT_CARD} format="auto" className="mt-6 min-h-[100px]" />
           <div className="mt-6 text-center">
             <button
               onClick={handleReset}
