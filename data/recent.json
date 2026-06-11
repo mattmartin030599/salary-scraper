@@ -1,0 +1,29 @@
+[
+  {
+    "jobId": "92172849",
+    "title": "Owners Corporation Manager",
+    "company": "State Owners Corp Pty Ltd",
+    "location": "Richmond, Melbourne VIC",
+    "salaryMin": 100000,
+    "salaryMax": 120000,
+    "timestamp": 1781179049636
+  },
+  {
+    "jobId": "92462226",
+    "title": "Client Intake Officer",
+    "company": "My Guardian",
+    "location": "Southbank, Melbourne VIC",
+    "salaryMin": 80000,
+    "salaryMax": 100000,
+    "timestamp": 1781179011212
+  },
+  {
+    "jobId": "92600609",
+    "title": "Corporate Account Manager",
+    "company": "Victoria Racing Club",
+    "location": "Flemington, Melbourne VIC",
+    "salaryMin": 80000,
+    "salaryMax": 100000,
+    "timestamp": 1781178945311
+  }
+]
