@@ -736,6 +736,629 @@ export const ROLES: RoleSalaryData[] = [
   },
 ]
 
+  // ── Technology (continued) ──────────────────────────────────────────────────
+  {
+    slug: 'qa-engineer',
+    title: 'QA Engineer',
+    industry: 'Technology & IT',
+    description:
+      'QA Engineers design and execute tests to ensure software quality. Seek lists both manual and automation QA roles, with automation engineers commanding a significant salary premium. Selenium, Cypress and Playwright skills are in high demand.',
+    auMin: 75000, auMax: 140000, auMedian: 102000,
+    nzMin: 68000, nzMax: 122000, nzMedian: 92000,
+    levels: [
+      { level: 'Junior QA (0–2 yrs)',    auRange: '$65k – $85k',  nzRange: 'NZD $60k – $78k'  },
+      { level: 'QA Engineer (2–5 yrs)',  auRange: '$85k – $115k', nzRange: 'NZD $78k – $103k' },
+      { level: 'Senior QA (5+ yrs)',     auRange: '$115k – $155k',nzRange: 'NZD $103k – $138k' },
+      { level: 'QA Lead / Manager',      auRange: '$148k – $185k',nzRange: 'NZD $132k – $165k' },
+    ],
+    topEmployers: ['Atlassian', 'Canva', 'NAB', 'Seek', 'REA Group', 'SafetyCulture'],
+    keywords: ['QA engineer salary australia', 'quality assurance salary seek', 'test automation engineer salary australia'],
+    relatedSlugs: ['software-engineer', 'devops-engineer', 'business-analyst'],
+  },
+  {
+    slug: 'business-analyst',
+    title: 'Business Analyst',
+    industry: 'Technology & IT',
+    description:
+      'Business Analysts bridge the gap between business stakeholders and IT teams, documenting requirements and driving change. BA is one of the most common mid-career roles on Seek in Australia, spanning banking, government, and enterprise software.',
+    auMin: 80000, auMax: 135000, auMedian: 103000,
+    nzMin: 72000, nzMax: 118000, nzMedian: 93000,
+    levels: [
+      { level: 'Junior BA',   auRange: '$70k – $90k',  nzRange: 'NZD $63k – $82k'  },
+      { level: 'BA',          auRange: '$90k – $115k', nzRange: 'NZD $82k – $103k' },
+      { level: 'Senior BA',   auRange: '$115k – $148k',nzRange: 'NZD $103k – $132k' },
+      { level: 'Lead / Principal BA', auRange: '$145k – $180k', nzRange: 'NZD $130k – $160k' },
+    ],
+    topEmployers: ['Commonwealth Bank', 'ANZ', 'Deloitte', 'Accenture', 'Services Australia', 'Optus'],
+    keywords: ['business analyst salary australia', 'BA salary seek', 'systems analyst salary australia'],
+    relatedSlugs: ['project-manager', 'data-analyst', 'product-manager'],
+  },
+  {
+    slug: 'project-manager',
+    title: 'Project Manager',
+    industry: 'Technology & IT',
+    description:
+      'Project Managers plan and deliver projects on time, on budget and in scope. Seek has thousands of PM roles at any time across IT, construction, engineering and healthcare. PMP or PRINCE2 certification boosts salary at senior levels.',
+    auMin: 100000, auMax: 165000, auMedian: 128000,
+    nzMin: 90000, nzMax: 148000, nzMedian: 115000,
+    levels: [
+      { level: 'Junior PM / Coordinator', auRange: '$75k – $98k',  nzRange: 'NZD $68k – $88k'  },
+      { level: 'Project Manager',         auRange: '$100k – $135k',nzRange: 'NZD $90k – $122k' },
+      { level: 'Senior PM',              auRange: '$135k – $170k',nzRange: 'NZD $122k – $152k' },
+      { level: 'Program / Portfolio Mgr',auRange: '$165k – $220k',nzRange: 'NZD $148k – $198k' },
+    ],
+    topEmployers: ['Deloitte', 'Accenture', 'IBM', 'Services Australia', 'Lend Lease', 'Telstra'],
+    keywords: ['project manager salary australia', 'PM salary seek', 'PMP salary australia 2025'],
+    relatedSlugs: ['business-analyst', 'scrum-master', 'operations-manager'],
+  },
+  {
+    slug: 'scrum-master',
+    title: 'Scrum Master / Agile Coach',
+    industry: 'Technology & IT',
+    description:
+      'Scrum Masters facilitate agile ceremonies, remove impediments and coach teams on agile practices. Australian tech companies and banks have adopted agile at scale, creating strong Seek demand. CSM, PSM or SAFe certification is commonly required.',
+    auMin: 100000, auMax: 160000, auMedian: 128000,
+    nzMin: 90000, nzMax: 142000, nzMedian: 115000,
+    levels: [
+      { level: 'Scrum Master',       auRange: '$95k – $125k',  nzRange: 'NZD $85k – $112k' },
+      { level: 'Senior Scrum Master',auRange: '$125k – $155k', nzRange: 'NZD $112k – $138k' },
+      { level: 'Agile Coach',        auRange: '$150k – $195k', nzRange: 'NZD $135k – $175k' },
+    ],
+    topEmployers: ['Commonwealth Bank', 'ANZ', 'Atlassian', 'Telstra', 'ATO', 'Accenture'],
+    keywords: ['scrum master salary australia', 'agile coach salary seek', 'SAFe salary australia'],
+    relatedSlugs: ['project-manager', 'product-manager', 'business-analyst'],
+  },
+  {
+    slug: 'network-engineer',
+    title: 'Network Engineer',
+    industry: 'Technology & IT',
+    description:
+      'Network Engineers design, implement and maintain enterprise networks and connectivity infrastructure. Cisco CCNA/CCNP and cloud networking certifications are frequently requested on Seek. Government and telco roles offer the highest network engineering salaries.',
+    auMin: 85000, auMax: 148000, auMedian: 112000,
+    nzMin: 78000, nzMax: 132000, nzMedian: 100000,
+    levels: [
+      { level: 'Junior Network Engineer', auRange: '$75k – $95k',  nzRange: 'NZD $68k – $88k'  },
+      { level: 'Network Engineer',        auRange: '$95k – $125k', nzRange: 'NZD $88k – $112k' },
+      { level: 'Senior / Lead',           auRange: '$125k – $160k',nzRange: 'NZD $112k – $143k' },
+    ],
+    topEmployers: ['Telstra', 'Optus', 'Verizon', 'DXC Technology', 'Defence', 'NBN Co'],
+    keywords: ['network engineer salary australia', 'CCNP salary australia', 'network administrator salary seek'],
+    relatedSlugs: ['devops-engineer', 'cybersecurity-analyst', 'systems-analyst'],
+  },
+  {
+    slug: 'systems-analyst',
+    title: 'Systems Analyst',
+    industry: 'Technology & IT',
+    description:
+      'Systems Analysts evaluate and improve IT systems to meet business requirements. Seek listings for this role are common in government, utilities, and large corporates undergoing digital transformation programmes.',
+    auMin: 85000, auMax: 138000, auMedian: 108000,
+    nzMin: 78000, nzMax: 122000, nzMedian: 97000,
+    levels: [
+      { level: 'Analyst',        auRange: '$80k – $105k', nzRange: 'NZD $72k – $95k'  },
+      { level: 'Senior Analyst', auRange: '$105k – $135k',nzRange: 'NZD $95k – $122k' },
+      { level: 'Lead Analyst',   auRange: '$132k – $162k',nzRange: 'NZD $118k – $145k' },
+    ],
+    topEmployers: ['Services Australia', 'ATO', 'DXC Technology', 'Accenture', 'Optus', 'NAB'],
+    keywords: ['systems analyst salary australia', 'IT analyst salary seek', 'business systems analyst salary australia'],
+    relatedSlugs: ['business-analyst', 'network-engineer', 'data-analyst'],
+  },
+
+  // ── Healthcare (continued) ──────────────────────────────────────────────────
+  {
+    slug: 'speech-pathologist',
+    title: 'Speech Pathologist',
+    industry: 'Healthcare & Medical',
+    description:
+      'Speech Pathologists assess and treat communication and swallowing disorders. NDIS expansion has significantly increased Australian demand. Seek listings span paediatric, adult, hospital and private practice settings.',
+    auMin: 68000, auMax: 110000, auMedian: 85000,
+    nzMin: 62000, nzMax: 98000, nzMedian: 78000,
+    levels: [
+      { level: 'Graduate / Junior',    auRange: '$62k – $80k',  nzRange: 'NZD $58k – $74k'  },
+      { level: 'Speech Pathologist',   auRange: '$80k – $100k', nzRange: 'NZD $74k – $92k'  },
+      { level: 'Senior / Supervisor',  auRange: '$100k – $125k',nzRange: 'NZD $92k – $112k' },
+    ],
+    topEmployers: ['NSW Health', 'Scope', 'Cerebral Palsy Alliance', 'The Speech Pathology Group', 'Anglicare'],
+    keywords: ['speech pathologist salary australia', 'speech therapy salary seek', 'SLP salary australia'],
+    relatedSlugs: ['occupational-therapist', 'physiotherapist', 'registered-nurse'],
+  },
+  {
+    slug: 'psychologist',
+    title: 'Psychologist',
+    industry: 'Healthcare & Medical',
+    description:
+      'Psychologists assess and treat mental health conditions and behavioural issues. Registration with AHPRA is required in Australia. Seek listings for clinical, forensic and organisational psychologists have grown substantially following the COVID-era surge in mental health demand.',
+    auMin: 80000, auMax: 140000, auMedian: 105000,
+    nzMin: 72000, nzMax: 125000, nzMedian: 95000,
+    levels: [
+      { level: 'Provisional Psychologist', auRange: '$65k – $82k',  nzRange: 'NZD $60k – $76k'  },
+      { level: 'Registered Psychologist',  auRange: '$82k – $110k', nzRange: 'NZD $76k – $100k' },
+      { level: 'Senior / Clinical Psych',  auRange: '$110k – $148k',nzRange: 'NZD $100k – $132k' },
+    ],
+    topEmployers: ['Headspace', 'Beyond Blue', 'MindSpot', 'Private Practice', 'NSW Health', 'Defence'],
+    keywords: ['psychologist salary australia', 'clinical psychologist salary seek', 'psychology salary australia 2025'],
+    relatedSlugs: ['social-worker', 'occupational-therapist', 'registered-nurse'],
+  },
+  {
+    slug: 'social-worker',
+    title: 'Social Worker',
+    industry: 'Healthcare & Medical',
+    description:
+      'Social Workers support individuals, families and communities through crises and social challenges. Government and non-profit roles are most common on Seek. AASW membership is required for most senior positions.',
+    auMin: 65000, auMax: 105000, auMedian: 82000,
+    nzMin: 60000, nzMax: 95000, nzMedian: 75000,
+    levels: [
+      { level: 'Graduate (Yr 1–2)',   auRange: '$60k – $75k',  nzRange: 'NZD $55k – $70k'  },
+      { level: 'Social Worker',       auRange: '$75k – $95k',  nzRange: 'NZD $70k – $88k'  },
+      { level: 'Senior Social Worker',auRange: '$95k – $118k', nzRange: 'NZD $88k – $108k' },
+      { level: 'Team Leader',         auRange: '$115k – $140k',nzRange: 'NZD $105k – $128k' },
+    ],
+    topEmployers: ['FACS NSW', 'DHHS Victoria', 'Anglicare', 'Mission Australia', 'Uniting', 'St Vincent de Paul'],
+    keywords: ['social worker salary australia', 'social work salary seek', 'AASW salary australia'],
+    relatedSlugs: ['psychologist', 'occupational-therapist', 'registered-nurse'],
+  },
+  {
+    slug: 'dentist',
+    title: 'Dentist',
+    industry: 'Healthcare & Medical',
+    description:
+      'Dentists diagnose and treat oral health conditions. Australia has a persistent shortage of dentists in regional areas, which is reflected in the salary premiums offered on Seek for rural and remote positions. Associate and principal dentist roles are the most common Seek listings.',
+    auMin: 100000, auMax: 220000, auMedian: 155000,
+    nzMin: 90000, nzMax: 195000, nzMedian: 140000,
+    levels: [
+      { level: 'New Grad / Associate',  auRange: '$90k – $120k',  nzRange: 'NZD $82k – $108k' },
+      { level: 'Experienced Dentist',   auRange: '$120k – $175k', nzRange: 'NZD $108k – $158k' },
+      { level: 'Principal / Owner',     auRange: '$175k – $300k+',nzRange: 'NZD $158k – $270k+' },
+    ],
+    topEmployers: ['Bupa Dental', 'Healthia', 'Primary Dental', 'Pacific Smiles', 'Grattan Street Dental'],
+    keywords: ['dentist salary australia', 'dental salary seek', 'dentist pay australia 2025'],
+    relatedSlugs: ['general-practitioner', 'pharmacist', 'registered-nurse'],
+  },
+  {
+    slug: 'paramedic',
+    title: 'Paramedic',
+    industry: 'Healthcare & Medical',
+    description:
+      'Paramedics provide emergency pre-hospital care. Most are employed by state ambulance services in Australia. Seek also lists paramedic roles in event medicine, mining site medical, and private retrieval services which typically pay above the public service EBA rates.',
+    auMin: 65000, auMax: 105000, auMedian: 82000,
+    nzMin: 60000, nzMax: 95000, nzMedian: 75000,
+    levels: [
+      { level: 'Paramedic (P1/P2)',    auRange: '$65k – $82k',  nzRange: 'NZD $60k – $76k'  },
+      { level: 'Senior Paramedic',     auRange: '$82k – $100k', nzRange: 'NZD $76k – $92k'  },
+      { level: 'Extended Care / HEMS', auRange: '$100k – $130k',nzRange: 'NZD $92k – $118k' },
+    ],
+    topEmployers: ['NSW Ambulance', 'Ambulance Victoria', 'QAS', 'SAAS', 'Medivac', 'Remote Area Health Corps'],
+    keywords: ['paramedic salary australia', 'ambulance officer salary seek', 'emergency services salary australia'],
+    relatedSlugs: ['registered-nurse', 'general-practitioner', 'physiotherapist'],
+  },
+  {
+    slug: 'radiographer',
+    title: 'Radiographer / Medical Imaging',
+    industry: 'Healthcare & Medical',
+    description:
+      'Radiographers perform medical imaging procedures including X-ray, CT, MRI and ultrasound. Seek listings are strong in both public hospitals and private radiology practices. AHPRA registration is mandatory; specialist modality skills attract salary premiums.',
+    auMin: 70000, auMax: 115000, auMedian: 88000,
+    nzMin: 64000, nzMax: 104000, nzMedian: 80000,
+    levels: [
+      { level: 'Graduate Radiographer', auRange: '$65k – $80k',  nzRange: 'NZD $60k – $74k'  },
+      { level: 'Radiographer',          auRange: '$80k – $100k', nzRange: 'NZD $74k – $92k'  },
+      { level: 'Senior Radiographer',   auRange: '$100k – $125k',nzRange: 'NZD $92k – $115k' },
+    ],
+    topEmployers: ['I-MED Radiology', 'Lumus Imaging', 'Capitol Health', 'Alfred Health', 'Royal Brisbane'],
+    keywords: ['radiographer salary australia', 'medical imaging salary seek', 'MRI radiographer salary australia'],
+    relatedSlugs: ['registered-nurse', 'pharmacist', 'physiotherapist'],
+  },
+
+  // ── Finance (continued) ──────────────────────────────────────────────────────
+  {
+    slug: 'mortgage-broker',
+    title: 'Mortgage Broker',
+    industry: 'Finance & Banking',
+    description:
+      'Mortgage Brokers help clients find and secure home loans. Most Seek listings offer a base salary plus trail commission, meaning total remuneration can far exceed the stated base. A Certificate IV in Finance and Mortgage Broking plus ASIC credit licence is required.',
+    auMin: 55000, auMax: 150000, auMedian: 90000,
+    nzMin: 50000, nzMax: 135000, nzMedian: 82000,
+    levels: [
+      { level: 'Junior / Assistant',  auRange: '$55k – $75k base',  nzRange: 'NZD $50k – $70k base' },
+      { level: 'Mortgage Broker',     auRange: '$75k – $120k total',nzRange: 'NZD $70k – $108k total' },
+      { level: 'Senior / Team Leader',auRange: '$120k – $200k+ total',nzRange: 'NZD $108k – $180k+ total' },
+    ],
+    topEmployers: ['Aussie', 'Mortgage Choice', 'Lendi', 'LoanMarket', 'Shore Financial', 'Connective'],
+    keywords: ['mortgage broker salary australia', 'mortgage broker pay seek', 'home loan broker salary australia'],
+    relatedSlugs: ['financial-planner', 'accountant', 'financial-analyst'],
+  },
+  {
+    slug: 'payroll-officer',
+    title: 'Payroll Officer',
+    industry: 'Finance & Banking',
+    description:
+      'Payroll Officers process employee pay, manage superannuation, and ensure compliance with Fair Work and ATO obligations. Seek has consistent demand for payroll roles in mid-to-large businesses. Knowledge of platforms like Xero Payroll, Chris21 or SAP SuccessFactors is valued.',
+    auMin: 60000, auMax: 95000, auMedian: 74000,
+    nzMin: 55000, nzMax: 88000, nzMedian: 68000,
+    levels: [
+      { level: 'Payroll Officer',        auRange: '$58k – $78k',  nzRange: 'NZD $54k – $72k'  },
+      { level: 'Senior Payroll Officer', auRange: '$78k – $98k',  nzRange: 'NZD $72k – $90k'  },
+      { level: 'Payroll Manager',        auRange: '$98k – $130k', nzRange: 'NZD $90k – $118k' },
+    ],
+    topEmployers: ['Woolworths', 'BHP', 'Toll Group', 'Myer', 'Catholic Education', 'NSW Health'],
+    keywords: ['payroll officer salary australia', 'payroll specialist salary seek', 'payroll manager salary australia'],
+    relatedSlugs: ['accountant', 'hr-manager', 'financial-analyst'],
+  },
+  {
+    slug: 'actuary',
+    title: 'Actuary',
+    industry: 'Finance & Banking',
+    description:
+      'Actuaries analyse financial risk using mathematics and statistics. Australia has a small but well-paid actuarial profession, primarily in insurance, superannuation and banking. Fellowship of the Actuaries Institute (FIAA) significantly increases earning potential.',
+    auMin: 100000, auMax: 220000, auMedian: 155000,
+    nzMin: 92000, nzMax: 198000, nzMedian: 140000,
+    levels: [
+      { level: 'Actuarial Analyst',    auRange: '$85k – $110k',  nzRange: 'NZD $78k – $100k' },
+      { level: 'Part-qualified Actuary',auRange: '$110k – $155k',nzRange: 'NZD $100k – $140k' },
+      { level: 'Fellow (FIAA)',         auRange: '$155k – $250k', nzRange: 'NZD $140k – $225k' },
+      { level: 'Chief Actuary',         auRange: '$250k – $400k+',nzRange: 'NZD $225k – $360k+' },
+    ],
+    topEmployers: ['QBE', 'IAG', 'AMP', 'TAL', 'Deloitte', 'KPMG'],
+    keywords: ['actuary salary australia', 'actuarial salary seek', 'FIAA salary australia'],
+    relatedSlugs: ['risk-manager', 'financial-analyst', 'data-scientist'],
+  },
+
+  // ── Engineering (continued) ───────────────────────────────────────────────────
+  {
+    slug: 'mining-engineer',
+    title: 'Mining Engineer',
+    industry: 'Engineering',
+    description:
+      'Mining Engineers design and manage extraction operations for minerals and resources. This is one of the highest-paid engineering roles in Australia, particularly in Western Australia and Queensland. Seek listings often include FIFO or DIDO arrangements with additional site allowances.',
+    auMin: 110000, auMax: 210000, auMedian: 158000,
+    nzMin: 98000, nzMax: 185000, nzMedian: 142000,
+    levels: [
+      { level: 'Graduate (0–3 yrs)',  auRange: '$90k – $120k',  nzRange: 'NZD $82k – $108k' },
+      { level: 'Engineer (3–7 yrs)', auRange: '$120k – $170k', nzRange: 'NZD $108k – $152k' },
+      { level: 'Senior (7+ yrs)',    auRange: '$170k – $220k', nzRange: 'NZD $152k – $198k' },
+      { level: 'Principal / Supt',   auRange: '$210k – $280k', nzRange: 'NZD $190k – $252k' },
+    ],
+    topEmployers: ['BHP', 'Rio Tinto', 'Fortescue', 'Newmont', 'Glencore', 'South32'],
+    keywords: ['mining engineer salary australia', 'mining salary seek', 'FIFO engineer salary australia', 'mining engineer salary WA'],
+    relatedSlugs: ['mechanical-engineer', 'civil-engineer', 'electrical-engineer'],
+  },
+  {
+    slug: 'chemical-engineer',
+    title: 'Chemical Engineer',
+    industry: 'Engineering',
+    description:
+      'Chemical Engineers design and optimise processes for converting raw materials into products. In Australia, opportunities span oil and gas, mining, food processing and pharmaceuticals. Seek listings are concentrated in WA and QLD for resource sector roles.',
+    auMin: 80000, auMax: 150000, auMedian: 110000,
+    nzMin: 74000, nzMax: 132000, nzMedian: 100000,
+    levels: [
+      { level: 'Graduate (0–2 yrs)', auRange: '$70k – $92k',  nzRange: 'NZD $64k – $84k'  },
+      { level: 'Engineer (2–6 yrs)', auRange: '$92k – $125k', nzRange: 'NZD $84k – $112k' },
+      { level: 'Senior (6+ yrs)',    auRange: '$125k – $165k',nzRange: 'NZD $112k – $148k' },
+    ],
+    topEmployers: ['Woodside', 'Santos', 'Orica', 'Incitec Pivot', 'CSL', 'Nufarm'],
+    keywords: ['chemical engineer salary australia', 'process engineer salary seek', 'oil gas engineer salary australia'],
+    relatedSlugs: ['mechanical-engineer', 'mining-engineer', 'electrical-engineer'],
+  },
+
+  // ── Management & HR ───────────────────────────────────────────────────────────
+  {
+    slug: 'operations-manager',
+    title: 'Operations Manager',
+    industry: 'Management',
+    description:
+      'Operations Managers oversee the day-to-day running of business activities. This is one of the most common senior management titles on Seek across every industry sector. Salaries vary widely by industry, with mining, logistics and tech paying at the top end.',
+    auMin: 100000, auMax: 180000, auMedian: 132000,
+    nzMin: 90000, nzMax: 162000, nzMedian: 120000,
+    levels: [
+      { level: 'Operations Coordinator', auRange: '$70k – $90k',  nzRange: 'NZD $63k – $82k'  },
+      { level: 'Operations Manager',     auRange: '$100k – $145k',nzRange: 'NZD $90k – $130k' },
+      { level: 'Senior Ops Manager',     auRange: '$145k – $190k',nzRange: 'NZD $130k – $170k' },
+      { level: 'Director of Operations', auRange: '$185k – $260k',nzRange: 'NZD $165k – $234k' },
+    ],
+    topEmployers: ['Woolworths', 'Toll Group', 'Transurban', 'BHP', 'Telstra', 'Commonwealth Bank'],
+    keywords: ['operations manager salary australia', 'ops manager salary seek', 'COO salary australia'],
+    relatedSlugs: ['project-manager', 'hr-manager', 'supply-chain-manager'],
+  },
+  {
+    slug: 'hr-manager',
+    title: 'HR Manager',
+    industry: 'Management',
+    description:
+      'HR Managers lead people and culture functions including recruitment, performance management, employee relations and compliance. Seek demand is consistent across all industries. CIPD, AHRI membership or a postgraduate HR qualification improves seniority and pay.',
+    auMin: 95000, auMax: 160000, auMedian: 122000,
+    nzMin: 85000, nzMax: 142000, nzMedian: 110000,
+    levels: [
+      { level: 'HR Business Partner', auRange: '$90k – $118k',  nzRange: 'NZD $82k – $106k' },
+      { level: 'HR Manager',          auRange: '$118k – $150k', nzRange: 'NZD $106k – $134k' },
+      { level: 'Senior HR Manager',   auRange: '$150k – $190k', nzRange: 'NZD $134k – $170k' },
+      { level: 'Head of People / HRD',auRange: '$185k – $270k', nzRange: 'NZD $165k – $242k' },
+    ],
+    topEmployers: ['Commonwealth Bank', 'BHP', 'Woolworths', 'Deloitte', 'NSW Government', 'Telstra'],
+    keywords: ['HR manager salary australia', 'human resources salary seek', 'CHRO salary australia'],
+    relatedSlugs: ['operations-manager', 'recruiter', 'payroll-officer'],
+  },
+  {
+    slug: 'office-manager',
+    title: 'Office Manager',
+    industry: 'Management',
+    description:
+      'Office Managers coordinate administrative operations, facilities, and business support functions. Seek lists many office manager roles in professional services, tech, and health. The role frequently combines EA, facilities and team coordination responsibilities.',
+    auMin: 60000, auMax: 95000, auMedian: 75000,
+    nzMin: 55000, nzMax: 88000, nzMedian: 69000,
+    levels: [
+      { level: 'Office Coordinator', auRange: '$55k – $72k', nzRange: 'NZD $50k – $65k'  },
+      { level: 'Office Manager',     auRange: '$72k – $95k', nzRange: 'NZD $65k – $88k'  },
+      { level: 'Senior / Practice Manager', auRange: '$92k – $120k', nzRange: 'NZD $85k – $108k' },
+    ],
+    topEmployers: ['Law firms', 'Accounting practices', 'Tech startups', 'Healthcare clinics', 'Real estate agencies'],
+    keywords: ['office manager salary australia', 'office administrator salary seek', 'practice manager salary australia'],
+    relatedSlugs: ['hr-manager', 'executive-assistant', 'operations-manager'],
+  },
+  {
+    slug: 'executive-assistant',
+    title: 'Executive Assistant / PA',
+    industry: 'Management',
+    description:
+      'Executive Assistants provide high-level administrative and operational support to C-suite and senior leaders. EA roles supporting CEOs of large ASX companies carry significantly higher Seek salaries than typical PA roles.',
+    auMin: 70000, auMax: 130000, auMedian: 92000,
+    nzMin: 62000, nzMax: 115000, nzMedian: 84000,
+    levels: [
+      { level: 'Personal Assistant',    auRange: '$62k – $82k',  nzRange: 'NZD $56k – $76k'  },
+      { level: 'Executive Assistant',   auRange: '$82k – $108k', nzRange: 'NZD $76k – $98k'  },
+      { level: 'Senior EA (C-suite)',   auRange: '$108k – $145k',nzRange: 'NZD $98k – $130k' },
+    ],
+    topEmployers: ['Big 4 banks', 'Macquarie', 'ASX-listed corporates', 'Law firms', 'Consulting firms'],
+    keywords: ['executive assistant salary australia', 'EA salary seek', 'personal assistant salary australia'],
+    relatedSlugs: ['office-manager', 'hr-manager', 'operations-manager'],
+  },
+
+  // ── Education (continued) ─────────────────────────────────────────────────────
+  {
+    slug: 'early-childhood-educator',
+    title: 'Early Childhood Educator',
+    industry: 'Education',
+    description:
+      'Early Childhood Educators care for and teach children aged 0–5 in long day care, kindergarten and family day care settings. Australian government wage increase supplements have improved pay in recent years. Seek lists both Certificate III and Diploma-qualified roles.',
+    auMin: 50000, auMax: 80000, auMedian: 62000,
+    nzMin: 46000, nzMax: 74000, nzMedian: 57000,
+    levels: [
+      { level: 'Cert III Educator',  auRange: '$48k – $62k', nzRange: 'NZD $44k – $58k'  },
+      { level: 'Diploma Educator',   auRange: '$62k – $74k', nzRange: 'NZD $58k – $68k'  },
+      { level: 'Room Leader / Director', auRange: '$74k – $95k', nzRange: 'NZD $68k – $88k' },
+    ],
+    topEmployers: ['G8 Education', 'Goodstart Early Learning', 'KU Children\'s Services', 'Mission Australia ECS'],
+    keywords: ['early childhood educator salary australia', 'childcare worker salary seek', 'kindergarten teacher salary australia'],
+    relatedSlugs: ['primary-school-teacher', 'social-worker', 'occupational-therapist'],
+  },
+
+  // ── Marketing (continued) ────────────────────────────────────────────────────
+  {
+    slug: 'content-writer',
+    title: 'Content Writer / Copywriter',
+    industry: 'Marketing & Communications',
+    description:
+      'Content Writers and Copywriters produce written content for websites, campaigns, social media and publications. Seek demand is strong from digital agencies, tech companies and retailers. SEO copywriting skills attract a premium.',
+    auMin: 55000, auMax: 95000, auMedian: 72000,
+    nzMin: 50000, nzMax: 85000, nzMedian: 65000,
+    levels: [
+      { level: 'Junior Writer',    auRange: '$50k – $68k', nzRange: 'NZD $46k – $62k'  },
+      { level: 'Copywriter',       auRange: '$68k – $90k', nzRange: 'NZD $62k – $82k'  },
+      { level: 'Senior / Lead',    auRange: '$90k – $120k',nzRange: 'NZD $82k – $108k' },
+    ],
+    topEmployers: ['News Corp', 'Nine Entertainment', 'digital agencies', 'e-commerce brands', 'Canva'],
+    keywords: ['content writer salary australia', 'copywriter salary seek', 'SEO writer salary australia'],
+    relatedSlugs: ['digital-marketing-specialist', 'marketing-manager', 'pr-manager'],
+  },
+  {
+    slug: 'pr-manager',
+    title: 'PR Manager',
+    industry: 'Marketing & Communications',
+    description:
+      'PR Managers build and protect brand reputation through media relations, communications strategy and crisis management. In Australia, senior PR roles in FMCG, tech and government pay considerably more than agency-side equivalents listed on Seek.',
+    auMin: 85000, auMax: 140000, auMedian: 108000,
+    nzMin: 78000, nzMax: 125000, nzMedian: 97000,
+    levels: [
+      { level: 'PR Coordinator',  auRange: '$60k – $80k',  nzRange: 'NZD $55k – $73k'  },
+      { level: 'PR Manager',      auRange: '$85k – $115k', nzRange: 'NZD $78k – $103k' },
+      { level: 'Senior PR / Comms Director', auRange: '$115k – $165k', nzRange: 'NZD $103k – $148k' },
+    ],
+    topEmployers: ['Edelman', 'Ogilvy', 'BCW', 'Woolworths', 'CommBank', 'state governments'],
+    keywords: ['PR manager salary australia', 'public relations salary seek', 'communications manager salary australia'],
+    relatedSlugs: ['marketing-manager', 'content-writer', 'digital-marketing-specialist'],
+  },
+  {
+    slug: 'social-media-manager',
+    title: 'Social Media Manager',
+    industry: 'Marketing & Communications',
+    description:
+      'Social Media Managers create content strategies and manage brand presence across platforms like Instagram, TikTok, LinkedIn and Facebook. This is one of the most-searched marketing roles on Seek in Australia, particularly in retail, hospitality and consumer brands.',
+    auMin: 60000, auMax: 100000, auMedian: 76000,
+    nzMin: 55000, nzMax: 90000, nzMedian: 68000,
+    levels: [
+      { level: 'Social Media Coordinator', auRange: '$55k – $72k', nzRange: 'NZD $50k – $65k'  },
+      { level: 'Social Media Manager',     auRange: '$72k – $95k', nzRange: 'NZD $65k – $86k'  },
+      { level: 'Head of Social',           auRange: '$95k – $130k',nzRange: 'NZD $86k – $118k' },
+    ],
+    topEmployers: ['Canva', 'MECCA', 'Woolworths', 'Jetstar', 'Sportsbet', 'Finder'],
+    keywords: ['social media manager salary australia', 'social media salary seek', 'Instagram manager salary australia'],
+    relatedSlugs: ['digital-marketing-specialist', 'content-writer', 'marketing-manager'],
+  },
+  {
+    slug: 'graphic-designer',
+    title: 'Graphic Designer',
+    industry: 'Marketing & Communications',
+    description:
+      'Graphic Designers create visual content for print and digital media. Seek listings span in-house corporate roles, digital agencies, and publishing. Adobe Creative Suite proficiency is universal; motion graphics and UI skills command a premium.',
+    auMin: 55000, auMax: 100000, auMedian: 73000,
+    nzMin: 50000, nzMax: 90000, nzMedian: 66000,
+    levels: [
+      { level: 'Junior Designer',  auRange: '$50k – $68k', nzRange: 'NZD $46k – $62k'  },
+      { level: 'Graphic Designer', auRange: '$68k – $90k', nzRange: 'NZD $62k – $82k'  },
+      { level: 'Senior Designer',  auRange: '$90k – $118k',nzRange: 'NZD $82k – $106k' },
+    ],
+    topEmployers: ['Canva', 'News Corp', 'Ogilvy', 'Leo Burnett', 'MECCA', 'Catch.com.au'],
+    keywords: ['graphic designer salary australia', 'designer salary seek', 'visual designer salary australia'],
+    relatedSlugs: ['ux-designer', 'content-writer', 'digital-marketing-specialist'],
+  },
+
+  // ── Trades (continued) ───────────────────────────────────────────────────────
+  {
+    slug: 'welder',
+    title: 'Welder',
+    industry: 'Trades & Services',
+    description:
+      'Welders join metal components using various welding processes including MIG, TIG and stick. Mining, oil & gas and construction drive strong Seek demand. FIFO welding roles in WA and QLD can push total earnings significantly above employed base rates.',
+    auMin: 60000, auMax: 110000, auMedian: 78000,
+    nzMin: 56000, nzMax: 100000, nzMedian: 72000,
+    levels: [
+      { level: 'Trade Assistant / 1st Yr', auRange: '$42k – $58k', nzRange: 'NZD $38k – $54k'  },
+      { level: 'Qualified Welder',         auRange: '$60k – $82k', nzRange: 'NZD $56k – $76k'  },
+      { level: 'Specialist (TIG/Coded)',   auRange: '$82k – $115k',nzRange: 'NZD $76k – $104k' },
+    ],
+    topEmployers: ['BHP', 'Rio Tinto', 'Monadelphous', 'Civmec', 'Downer', 'UGL'],
+    keywords: ['welder salary australia', 'welding salary seek', 'TIG welder salary australia', 'coded welder salary'],
+    relatedSlugs: ['electrician', 'diesel-mechanic', 'carpenter'],
+  },
+  {
+    slug: 'diesel-mechanic',
+    title: 'Diesel Mechanic',
+    industry: 'Trades & Services',
+    description:
+      'Diesel Mechanics service and repair heavy vehicles, earthmoving equipment and plant. Mining site mechanics are among the best-paid tradespeople in Australia. Seek listings often include FIFO arrangements with site allowances in addition to the advertised base.',
+    auMin: 72000, auMax: 130000, auMedian: 95000,
+    nzMin: 66000, nzMax: 118000, nzMedian: 87000,
+    levels: [
+      { level: 'Apprentice (Yr 3–4)', auRange: '$42k – $58k',  nzRange: 'NZD $38k – $53k'  },
+      { level: 'Qualified Mechanic',  auRange: '$72k – $95k',  nzRange: 'NZD $66k – $88k'  },
+      { level: 'Leading Hand',        auRange: '$95k – $118k', nzRange: 'NZD $88k – $108k' },
+      { level: 'Mine Site Mechanic',  auRange: '$115k – $145k',nzRange: 'NZD $105k – $132k' },
+    ],
+    topEmployers: ['BHP', 'Caterpillar', 'Komatsu', 'WesTrac', 'Hastings Deering', 'Downer'],
+    keywords: ['diesel mechanic salary australia', 'heavy vehicle mechanic salary seek', 'mine site mechanic salary australia'],
+    relatedSlugs: ['electrician', 'welder', 'mining-engineer'],
+  },
+  {
+    slug: 'concreter',
+    title: 'Concreter / Concretor',
+    industry: 'Trades & Services',
+    description:
+      'Concreters place and finish concrete for foundations, slabs, driveways and structural elements. Australia\'s construction boom is driving strong Seek demand. Experienced concreters who run their own subcontracting operations can earn well above employed rates.',
+    auMin: 62000, auMax: 105000, auMedian: 80000,
+    nzMin: 58000, nzMax: 96000, nzMedian: 74000,
+    levels: [
+      { level: 'Labourer / 1st Yr', auRange: '$48k – $62k', nzRange: 'NZD $44k – $58k'  },
+      { level: 'Qualified Concreter',auRange: '$62k – $85k', nzRange: 'NZD $58k – $78k'  },
+      { level: 'Leading Hand',       auRange: '$85k – $110k',nzRange: 'NZD $78k – $100k' },
+    ],
+    topEmployers: ['Boral', 'Hanson', 'Holcim', 'John Holland', 'Multiplex', 'subcontractors'],
+    keywords: ['concreter salary australia', 'concretor salary seek', 'concreting salary australia'],
+    relatedSlugs: ['carpenter', 'electrician', 'plumber'],
+  },
+
+  // ── Other Professional ────────────────────────────────────────────────────────
+  {
+    slug: 'real-estate-agent',
+    title: 'Real Estate Agent',
+    industry: 'Property & Real Estate',
+    description:
+      'Real Estate Agents facilitate property sales and rentals, earning commission on each transaction. Seek listings typically show a low base salary plus commission, so total earnings in a strong market can far exceed the advertised base. State-based licensing is required.',
+    auMin: 45000, auMax: 180000, auMedian: 88000,
+    nzMin: 40000, nzMax: 160000, nzMedian: 80000,
+    levels: [
+      { level: 'Agent\'s Rep / Junior', auRange: '$45k – $65k base',    nzRange: 'NZD $40k – $60k base'  },
+      { level: 'Licensed Agent',        auRange: '$65k – $130k total',  nzRange: 'NZD $60k – $118k total' },
+      { level: 'Principal Agent',       auRange: '$130k – $300k+ total',nzRange: 'NZD $118k – $270k+ total' },
+    ],
+    topEmployers: ['Ray White', 'McGrath', 'LJ Hooker', 'Harcourts', 'Barry Plant', 'Jellis Craig'],
+    keywords: ['real estate agent salary australia', 'real estate agent pay seek', 'property agent salary australia'],
+    relatedSlugs: ['mortgage-broker', 'financial-planner', 'operations-manager'],
+  },
+  {
+    slug: 'supply-chain-manager',
+    title: 'Supply Chain Manager',
+    industry: 'Logistics & Supply Chain',
+    description:
+      'Supply Chain Managers oversee procurement, inventory, logistics and distribution operations. Post-COVID disruptions have elevated the profile and pay of this role in Australia. Seek listings are strong in retail, manufacturing, food and pharmaceutical sectors.',
+    auMin: 100000, auMax: 170000, auMedian: 130000,
+    nzMin: 90000, nzMax: 152000, nzMedian: 118000,
+    levels: [
+      { level: 'Supply Chain Analyst / Planner', auRange: '$70k – $95k',  nzRange: 'NZD $63k – $86k'  },
+      { level: 'Supply Chain Manager',           auRange: '$100k – $140k',nzRange: 'NZD $90k – $126k' },
+      { level: 'Head of Supply Chain',           auRange: '$140k – $185k',nzRange: 'NZD $126k – $166k' },
+    ],
+    topEmployers: ['Woolworths', 'Coles', 'Toll Group', 'DHL', 'CSL', 'Wesfarmers'],
+    keywords: ['supply chain manager salary australia', 'supply chain salary seek', 'procurement manager salary australia'],
+    relatedSlugs: ['logistics-coordinator', 'operations-manager', 'project-manager'],
+  },
+  {
+    slug: 'logistics-coordinator',
+    title: 'Logistics Coordinator',
+    industry: 'Logistics & Supply Chain',
+    description:
+      'Logistics Coordinators organise the movement, storage and delivery of goods. It is one of the most common entry-to-mid level roles on Seek within the supply chain space. Experience with SAP, WMS or TMS software is frequently listed as a requirement.',
+    auMin: 58000, auMax: 88000, auMedian: 70000,
+    nzMin: 54000, nzMax: 80000, nzMedian: 65000,
+    levels: [
+      { level: 'Logistics Officer',      auRange: '$55k – $72k', nzRange: 'NZD $50k – $66k'  },
+      { level: 'Logistics Coordinator',  auRange: '$65k – $85k', nzRange: 'NZD $60k – $78k'  },
+      { level: 'Logistics Supervisor',   auRange: '$82k – $105k',nzRange: 'NZD $75k – $96k'  },
+    ],
+    topEmployers: ['Toll Group', 'Linfox', 'DHL', 'StarTrack', 'Woolworths', 'Coles'],
+    keywords: ['logistics coordinator salary australia', 'logistics salary seek', 'freight coordinator salary australia'],
+    relatedSlugs: ['supply-chain-manager', 'operations-manager', 'account-manager'],
+  },
+  {
+    slug: 'account-manager',
+    title: 'Account Manager (Sales)',
+    industry: 'Sales & Business Development',
+    description:
+      'Account Managers maintain and grow relationships with existing clients while identifying upsell opportunities. Seek has a large volume of account manager listings across tech, media, logistics and financial services. Most include a base plus commission structure.',
+    auMin: 70000, auMax: 140000, auMedian: 98000,
+    nzMin: 63000, nzMax: 125000, nzMedian: 88000,
+    levels: [
+      { level: 'Junior / Graduate AM', auRange: '$60k – $80k base',  nzRange: 'NZD $55k – $73k base' },
+      { level: 'Account Manager',      auRange: '$80k – $115k OTE',  nzRange: 'NZD $73k – $105k OTE' },
+      { level: 'Senior / Key Account', auRange: '$115k – $165k OTE', nzRange: 'NZD $105k – $148k OTE' },
+    ],
+    topEmployers: ['Telstra', 'Microsoft', 'Salesforce', 'Google', 'News Corp', 'Seek'],
+    keywords: ['account manager salary australia', 'sales account manager salary seek', 'key account manager salary australia'],
+    relatedSlugs: ['customer-success-manager', 'marketing-manager', 'operations-manager'],
+  },
+  {
+    slug: 'customer-success-manager',
+    title: 'Customer Success Manager',
+    industry: 'Sales & Business Development',
+    description:
+      'Customer Success Managers ensure clients get maximum value from a product or service, driving retention and expansion. This role has grown significantly in Australian SaaS and tech companies. Seek listings often show OTE figures combining base with renewal commissions.',
+    auMin: 85000, auMax: 148000, auMedian: 112000,
+    nzMin: 78000, nzMax: 132000, nzMedian: 100000,
+    levels: [
+      { level: 'Customer Success Specialist', auRange: '$75k – $95k',  nzRange: 'NZD $68k – $86k'  },
+      { level: 'Customer Success Manager',    auRange: '$95k – $130k', nzRange: 'NZD $86k – $118k' },
+      { level: 'Senior / Enterprise CSM',     auRange: '$130k – $175k',nzRange: 'NZD $118k – $158k' },
+    ],
+    topEmployers: ['Atlassian', 'Salesforce', 'HubSpot', 'Xero', 'Canva', 'SafetyCulture'],
+    keywords: ['customer success manager salary australia', 'CSM salary seek', 'customer success salary australia'],
+    relatedSlugs: ['account-manager', 'product-manager', 'marketing-manager'],
+  },
+  {
+    slug: 'recruiter',
+    title: 'Recruiter / Talent Acquisition',
+    industry: 'Human Resources',
+    description:
+      'Recruiters source and place candidates in permanent and contract roles. Internal talent acquisition roles at large companies on Seek typically pay more than agency recruitment. Tech, finance and healthcare specialists earn at the higher end of the range.',
+    auMin: 65000, auMax: 130000, auMedian: 90000,
+    nzMin: 60000, nzMax: 118000, nzMedian: 82000,
+    levels: [
+      { level: 'Recruitment Consultant', auRange: '$60k – $80k base', nzRange: 'NZD $55k – $73k base' },
+      { level: 'Senior Recruiter',       auRange: '$80k – $110k OTE', nzRange: 'NZD $73k – $100k OTE' },
+      { level: 'Talent Acquisition Lead',auRange: '$110k – $155k',    nzRange: 'NZD $100k – $140k'    },
+    ],
+    topEmployers: ['Seek', 'Hays', 'Robert Half', 'Hudson', 'Commonwealth Bank', 'Atlassian'],
+    keywords: ['recruiter salary australia', 'talent acquisition salary seek', 'recruitment consultant salary australia'],
+    relatedSlugs: ['hr-manager', 'account-manager', 'customer-success-manager'],
+  },
+]
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 export function getRoleBySlug(slug: string): RoleSalaryData | undefined {

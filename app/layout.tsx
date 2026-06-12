@@ -3,12 +3,14 @@ import type { Viewport } from 'next'
 import Script from 'next/script'
 import DarkModeToggle from '@/components/DarkModeToggle'
 import Sidebar from '@/components/Sidebar'
+import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration'
 import './globals.css'
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,   // prevents iOS auto-zoom on input focus
+  themeColor: '#2563eb',
 }
 
 export const metadata: Metadata = {
@@ -56,6 +58,12 @@ export const metadata: Metadata = {
   verification: {
     google: 'b1ry3ph9_Jzu9KDwoTKHfmdEadS0eYxSWSY-DotZdLA',
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Salary Scraper',
+  },
+  manifest: '/manifest.webmanifest',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -71,13 +79,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950 transition-colors duration-200">
-        {/* Google AdSense — swap ca-pub-XXXXXXXXXXXXXXXX for your publisher ID */}
+        {/* Google AdSense */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7289866798736873"
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
+        {/* PWA service worker registration */}
+        <ServiceWorkerRegistration />
         {/* Side navigation drawer */}
         <Sidebar />
         {/* Floating dark mode toggle */}
