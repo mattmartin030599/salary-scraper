@@ -1,6 +1,39 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import AdUnit from '@/components/AdUnit'
 import { AD_SLOTS } from '@/lib/adSlots'
+
+// Maps Explore role titles to individual salary page slugs
+const SLUG_MAP: Record<string, string> = {
+  'Software Engineer':           'software-engineer',
+  'Senior Software Engineer':    'senior-software-engineer',
+  'Data Scientist':              'data-scientist',
+  'Product Manager':             'product-manager',
+  'UX Designer':                 'ux-designer',
+  'DevOps / Cloud Engineer':     'devops-engineer',
+  'Financial Analyst':           'financial-analyst',
+  'Accountant':                  'accountant',
+  'Investment Banker (Analyst)': 'investment-banker',
+  'Risk Manager':                'risk-manager',
+  'Registered Nurse (RN)':       'registered-nurse',
+  'General Practitioner (GP)':   'general-practitioner',
+  'Pharmacist':                  'pharmacist',
+  'Physiotherapist':             'physiotherapist',
+  'Civil Engineer':              'civil-engineer',
+  'Mechanical Engineer':         'mechanical-engineer',
+  'Electrical Engineer':         'electrical-engineer',
+  'Structural Engineer':         'structural-engineer',
+  'Marketing Manager':           'marketing-manager',
+  'Digital Marketing Specialist':'digital-marketing-specialist',
+  'Primary School Teacher':      'primary-school-teacher',
+  'Secondary School Teacher':    'secondary-school-teacher',
+  'University Lecturer':         'university-lecturer',
+  'Solicitor / Lawyer':          'solicitor',
+  'In-house Counsel':            'in-house-counsel',
+  'Electrician':                 'electrician',
+  'Plumber':                     'plumber',
+  'Carpenter':                   'carpenter',
+}
 
 export const metadata: Metadata = {
   title: 'Industry Salary Ranges — Australia & New Zealand',
@@ -104,8 +137,23 @@ const INDUSTRIES = [
 ]
 
 export default function ExplorePage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: 'Australian & New Zealand Salary Ranges by Industry',
+    description: 'Typical salary ranges for common professional roles across Australia and New Zealand, organised by industry sector.',
+    url: 'https://salaryscraper.com/explore',
+    creator: { '@type': 'Organization', name: 'Salary Scraper', url: 'https://salaryscraper.com' },
+    spatialCoverage: ['Australia', 'New Zealand'],
+    temporalCoverage: '2024/2025',
+  }
+
   return (
     <main className="flex-1 flex flex-col items-center px-4 py-16 sm:py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="w-full max-w-3xl">
 
         {/* Header */}
@@ -151,13 +199,31 @@ export default function ExplorePage() {
                   >
                     {/* Desktop: 3-col grid */}
                     <div className="hidden sm:grid grid-cols-3 gap-4">
-                      <span className="text-gray-700 dark:text-gray-300 font-medium">{role.title}</span>
+                      {SLUG_MAP[role.title] ? (
+                        <Link
+                          href={`/salary/${SLUG_MAP[role.title]}`}
+                          className="text-gray-700 dark:text-gray-300 font-medium hover:text-brand-600 dark:hover:text-brand-400 transition-colors underline-offset-2 hover:underline"
+                        >
+                          {role.title}
+                        </Link>
+                      ) : (
+                        <span className="text-gray-700 dark:text-gray-300 font-medium">{role.title}</span>
+                      )}
                       <span className="text-brand-600 dark:text-brand-400 font-semibold">{role.auRange}</span>
                       <span className="text-gray-500 dark:text-gray-500">{role.nzRange}</span>
                     </div>
                     {/* Mobile: stacked */}
                     <div className="sm:hidden">
-                      <p className="font-medium text-gray-800 dark:text-gray-200 mb-1.5">{role.title}</p>
+                      {SLUG_MAP[role.title] ? (
+                        <Link
+                          href={`/salary/${SLUG_MAP[role.title]}`}
+                          className="font-medium text-gray-800 dark:text-gray-200 mb-1.5 block hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                        >
+                          {role.title} →
+                        </Link>
+                      ) : (
+                        <p className="font-medium text-gray-800 dark:text-gray-200 mb-1.5">{role.title}</p>
+                      )}
                       <div className="flex gap-4">
                         <div>
                           <span className="text-[10px] font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wide block mb-0.5">AU</span>
