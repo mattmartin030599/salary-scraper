@@ -734,7 +734,6 @@ export const ROLES: RoleSalaryData[] = [
     keywords: ['digital marketing salary australia', 'digital marketer salary seek', 'SEO specialist salary australia', 'Google Ads salary australia'],
     relatedSlugs: ['marketing-manager', 'ux-designer', 'product-manager'],
   },
-]
 
   // ── Technology (continued) ──────────────────────────────────────────────────
   {
