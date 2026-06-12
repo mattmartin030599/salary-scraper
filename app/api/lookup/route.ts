@@ -41,6 +41,10 @@ const JOB_DETAILS_QUERY = `
 //   "$100k – $130k per year"
 // We parse it into integer min/max annual figures.
 
+// Anything that annualises to less than this is almost certainly an unlabelled
+// hourly/daily rate — we can't safely convert it without knowing the period.
+const MIN_ANNUAL = 15_000
+
 function parseSalaryLabel(label: string | null | undefined): { min: number; max: number } | null {
   if (!label) return null
 
@@ -59,25 +63,26 @@ function parseSalaryLabel(label: string | null | undefined): { min: number; max:
     .replace(/(\d+\.?\d*)k\b/gi, (_, n) => String(Math.round(parseFloat(n) * 1000)))
 
   // Range: "$90000 – $120000" or "$90000 - $120000"
-  const rangeMatch = norm.match(/\$(\d+)\s*[–\-]+\s*\$(\d+)/)
+  // parseFloat handles decimal rates like "$54.88 – $60.00 per hour"
+  const rangeMatch = norm.match(/\$(\d+\.?\d*)\s*[–\-]+\s*\$(\d+\.?\d*)/)
   if (rangeMatch) {
-    const min = parseInt(rangeMatch[1]) * mult
-    const max = parseInt(rangeMatch[2]) * mult
-    if (min > 0 && max > 0) return { min, max }
+    const min = Math.round(parseFloat(rangeMatch[1]) * mult)
+    const max = Math.round(parseFloat(rangeMatch[2]) * mult)
+    if (min >= MIN_ANNUAL && max >= MIN_ANNUAL) return { min, max }
   }
 
   // Lower-bound only: "$120000+"
-  const plusMatch = norm.match(/\$(\d+)\s*\+/)
+  const plusMatch = norm.match(/\$(\d+\.?\d*)\s*\+/)
   if (plusMatch) {
-    const min = parseInt(plusMatch[1]) * mult
-    if (min > 0) return { min, max: Math.round(min * 1.25 / 1000) * 1000 }
+    const min = Math.round(parseFloat(plusMatch[1]) * mult)
+    if (min >= MIN_ANNUAL) return { min, max: Math.round(min * 1.25 / 1000) * 1000 }
   }
 
   // Single value: "$120000 per year"
-  const singleMatch = norm.match(/\$(\d+)/)
+  const singleMatch = norm.match(/\$(\d+\.?\d*)/)
   if (singleMatch) {
-    const val = parseInt(singleMatch[1]) * mult
-    if (val > 0) {
+    const val = Math.round(parseFloat(singleMatch[1]) * mult)
+    if (val >= MIN_ANNUAL) {
       return {
         min: Math.round(val * 0.9 / 1000) * 1000,
         max: Math.round(val * 1.1 / 1000) * 1000,
@@ -88,7 +93,7 @@ function parseSalaryLabel(label: string | null | undefined): { min: number; max:
   return null
 }
 
-// ─── Main streaming handler ───────────────────────────────────────────────────
+// ─── Main streaming handler ───────────────────────────────────────────────────// ─── Main streaming handler ───────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
   const encoder = new TextEncoder()
