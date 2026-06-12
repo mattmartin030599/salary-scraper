@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'Salary Scraper',
   webDir: 'out',
   server: {
-    url: 'https://salaryscraper.com',
+    url: 'https://www.salaryscraper.com',
     cleartext: false,
   },
 }
