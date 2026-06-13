@@ -93,7 +93,7 @@ function parseSalaryLabel(label: string | null | undefined): { min: number; max:
   return null
 }
 
-// ─── Market salary fallback ────────────────────────────────────────────
+// ─── Market salary fallback ───────────────────────────────────────────────────
 // When a listing has no parseable salary, fetch Seek search results for the same
 // job title and derive a market rate from current listings that do show salaries.
 
@@ -224,10 +224,10 @@ export async function POST(req: NextRequest) {
           return
         }
 
-        const jobTitle    = job.title                  ?? ''
-        const jobCompany  = job.advertiser?.name       ?? ''
-        const jobLocation = job.location?.label        ?? 'Australia'
-        const salaryLabel = job.salary?.label          ?? null
+        const jobTitle    = job.title                   ?? ''
+        const jobCompany  = job.advertiser?.name        ?? ''
+        const jobLocation = job.location?.label         ?? 'Australia'
+        const salaryLabel = job.salary?.label           ?? null
 
         send({
           type:     'jobFound',
@@ -241,22 +241,24 @@ export async function POST(req: NextRequest) {
         const salary = parseSalaryLabel(salaryLabel)
 
         if (!salary) {
-          // ── Step 4b: Market salary fallback ─────────────────────────────────────────
+          // ── Step 4b: Market salary fallback ────────────────────────────────
           send({ type: 'progress', message: 'No salary listed — checking similar roles…', percent: 75 })
           const market = await fetchMarketSalary(jobTitle || '')
 
           if (market && market.count >= 3) {
-            const searchCount = incrementCount(jobId)
-            addLookup({
-              jobId,
-              title:     jobTitle    || 'Unknown Position',
-              company:   jobCompany  || '',
-              location:  jobLocation,
-              salaryMin: market.min,
-              salaryMax: market.max,
-            })
+            const [searchCount] = await Promise.all([
+              incrementCount(jobId),
+              addLookup({
+                jobId,
+                title:     jobTitle    || 'Unknown Position',
+                company:   jobCompany  || '',
+                location:  jobLocation,
+                salaryMin: market.min,
+                salaryMax: market.max,
+              }),
+            ])
             send({
-              type:         'result',
+              type:          'result',
               jobId,
               title:        jobTitle    || 'Unknown Position',
               company:      jobCompany  || '',
@@ -285,15 +287,17 @@ export async function POST(req: NextRequest) {
         send({ type: 'progress', message: 'Calculating…', percent: 90 })
 
         // ── Step 5: Record and emit result ──────────────────────────────────
-        const searchCount = incrementCount(jobId)
-        addLookup({
-          jobId,
-          title:     jobTitle    || 'Unknown Position',
-          company:   jobCompany  || '',
-          location:  jobLocation,
-          salaryMin: salary.min,
-          salaryMax: salary.max,
-        })
+        const [searchCount] = await Promise.all([
+          incrementCount(jobId),
+          addLookup({
+            jobId,
+            title:     jobTitle    || 'Unknown Position',
+            company:   jobCompany  || '',
+            location:  jobLocation,
+            salaryMin: salary.min,
+            salaryMax: salary.max,
+          }),
+        ])
 
         send({
           type:        'result',
@@ -321,7 +325,7 @@ export async function POST(req: NextRequest) {
     headers: {
       'Content-Type':  'text/event-stream',
       'Cache-Control': 'no-cache',
-      'Connection':    'keep-alive',
+      'Connection':   'keep-alive',
     },
   })
 }
