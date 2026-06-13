@@ -45,34 +45,14 @@ function calcMedicare(income: number): number {
   return income * 0.02
 }
 
-// HECS/HELP repayment bands (ATO 2024-25)
-// Each [threshold, rate] means: income below this threshold uses this rate.
-// The leading [54_435, 0] ensures incomes below the minimum threshold pay nothing.
+// HECS/HELP repayment — ATO 2025-26
+// From 2025-26 the ATO switched to a marginal-rate system: repayment is calculated
+// only on income ABOVE the minimum threshold, not on total income.
+// Source: https://www.ato.gov.au/tax-rates-and-codes/study-and-training-support-loans-rates-and-repayment-thresholds
 function calcHECS(income: number): number {
-  const bands: [number, number][] = [
-    [54_435,   0],      // below minimum threshold → nil
-    [62_851,   0.010],
-    [66_621,   0.020],
-    [70_619,   0.025],
-    [74_856,   0.030],
-    [79_347,   0.035],
-    [84_108,   0.040],
-    [89_155,   0.045],
-    [94_504,   0.050],
-    [100_175,  0.055],
-    [106_186,  0.060],
-    [112_557,  0.065],
-    [119_310,  0.070],
-    [126_468,  0.075],
-    [134_057,  0.080],
-    [142_100,  0.085],
-    [150_626,  0.090],
-    [159_664,  0.095],
-    [Infinity, 0.100],
-  ]
-  for (const [threshold, rate] of bands) {
-    if (income < threshold) return Math.round(income * rate)
-  }
+  if (income <= 67_000)  return 0
+  if (income <= 125_000) return Math.round((income - 67_000) * 0.15)
+  if (income <= 179_285) return Math.round(8_700 + (income - 125_000) * 0.17)
   return Math.round(income * 0.10)
 }
 
