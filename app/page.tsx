@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
+import Link              from 'next/link'
 import SalaryLookup      from '@/components/SalaryLookup'
-import DonationBanner    from '@/components/DonationBanner'
 import YourRecentLookups from '@/components/YourRecentLookups'
 import RecentLookups     from '@/components/RecentLookups'
 import AdUnit            from '@/components/AdUnit'
@@ -59,12 +59,14 @@ export default function Home() {
 
       {/* Logo / wordmark */}
       <div className="mb-10 text-center">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/logo.png"
-          alt="Salary Scraper"
-          className="h-20 w-auto mx-auto mb-3 dark:opacity-100 opacity-90"
-        />
+        <Link href="/" className="inline-block">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo.png"
+            alt="Salary Scraper"
+            className="h-20 w-auto mx-auto mb-3 dark:opacity-100 opacity-90"
+          />
+        </Link>
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
           Salary Scraper
         </h1>
@@ -76,11 +78,6 @@ export default function Home() {
       {/* Main lookup UI */}
       <div className="w-full max-w-xl">
         <SalaryLookup />
-      </div>
-
-      {/* Donation banner */}
-      <div className="w-full max-w-xl">
-        <DonationBanner />
       </div>
 
       {/* Visitor's own lookup history — localStorage, hidden until first lookup */}
@@ -106,7 +103,7 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
           {[
             { step: '1', label: 'Paste the URL', desc: 'Copy any Seek job listing URL and paste it above.' },
-            { step: '2', label: 'We scan Seek', desc: "We probe Seek's internal salary filter ~12 times using binary search." },
+            { step: '2', label: 'We scan Seek', desc: "We probe Seek's internal salary filter ~12 times using binary search(." },
             { step: '3', label: 'Salary revealed', desc: 'The hidden salary range appears — even if the listing shows none.' },
           ].map(({ step, label, desc }) => (
             <div key={step} className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-4 flex sm:flex-col items-start sm:items-center gap-4 sm:gap-0 text-left sm:text-center">
