@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function currentFYLabel(): string {
   const now = new Date()
@@ -112,7 +112,37 @@ export default function TakeHomePay({ salaryMin, salaryMax }: Props) {
   const [includeHECS, setIncHECS]      = useState(false)
 
   const midpoint = Math.round((salaryMin + salaryMax) / 2 / 1000) * 1000
-  const result   = calcTakeHome(midpoint, includingSuper, includeHECS)
+
+  // Editable gross — defaults to midpoint, resets whenever the job changes
+  const [customGross, setCustomGross]  = useState<number>(midpoint)
+  const [inputStr,    setInputStr]     = useState<string>(String(midpoint))
+
+  useEffect(() => {
+    setCustomGross(midpoint)
+    setInputStr(String(midpoint))
+  }, [midpoint])
+
+  const isAtMidpoint = customGross === midpoint
+
+  function handleInputChange(raw: string) {
+    // Allow only digits; strip formatting
+    const digits = raw.replace(/[^\d]/g, '')
+    setInputStr(digits)
+    const n = parseInt(digits, 10)
+    if (!isNaN(n) && n > 0) setCustomGross(n)
+  }
+
+  function handleInputBlur() {
+    // Re-format on blur to keep display clean
+    if (!inputStr || parseInt(inputStr, 10) <= 0) {
+      setInputStr(String(midpoint))
+      setCustomGross(midpoint)
+    } else {
+      setInputStr(String(customGross))
+    }
+  }
+
+  const result = calcTakeHome(customGross, includingSuper, includeHECS)
 
   return (
     <div className="mt-4 border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden">
@@ -126,7 +156,9 @@ export default function TakeHomePay({ salaryMin, salaryMax }: Props) {
             <path fillRule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM8.94 6.907a6.129 6.129 0 0 1 .548-.172 3.64 3.64 0 0 1-.36-.521A6.47 6.47 0 0 0 8 7.38a6.47 6.47 0 0 0-1.5-1.267 6.47 6.47 0 0 0-2.25 3.18 6.47 6.47 0 0 0 1.5.688 6.47 6.47 0 0 0 1.5-1.267 6.47 6.47 0 0 0 1.128-.807ZM10 7a3 3 0 1 1 0 6 3 3 0 0 1 0-6Z" clipRule="evenodd"/>
           </svg>
           Take-home pay estimate
-          <span className="text-xs text-gray-400 dark:text-gray-500 font-normal hidden sm:inline">(midpoint · ATO {currentFYLabel()})</span>
+          <span className="text-xs text-gray-400 dark:text-gray-500 font-normal hidden sm:inline">
+            ({isAtMidpoint ? 'midpoint' : 'custom'} · ATO {currentFYLabel()})
+          </span>
         </span>
         <svg
           viewBox="0 0 20 20" fill="currentColor"
@@ -153,8 +185,40 @@ export default function TakeHomePay({ salaryMin, salaryMax }: Props) {
             />
           </div>
 
+          {/* Editable gross salary input */}
+          <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center flex-1 min-w-0 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5 focus-within:border-brand-400 dark:focus-within:border-brand-600 transition-colors">
+              <span className="text-sm text-gray-400 dark:text-gray-500 mr-1 shrink-0">$</span>
+              <input
+                type="text"
+                inputMode="numeric"
+                value={inputStr ? Number(inputStr).toLocaleString('en-AU') : ''}
+                onChange={e => handleInputChange(e.target.value)}
+                onBlur={handleInputBlur}
+                onFocus={e => {
+                  // Select all on focus for easy replacement
+                  e.target.select()
+                }}
+                className="flex-1 min-w-0 bg-transparent text-sm font-medium text-gray-900 dark:text-gray-100 outline-none"
+                aria-label="Gross salary"
+              />
+              <span className="text-xs text-gray-400 dark:text-gray-500 shrink-0 ml-1">/yr</span>
+            </div>
+            {!isAtMidpoint && (
+              <button
+                type="button"
+                onClick={() => { setCustomGross(midpoint); setInputStr(String(midpoint)) }}
+                className="shrink-0 text-xs text-brand-600 dark:text-brand-400 hover:underline whitespace-nowrap"
+              >
+                Reset
+              </button>
+            )}
+            {isAtMidpoint && (
+              <span className="shrink-0 text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap">midpoint</span>
+            )}
+          </div>
           <p className="text-xs text-gray-400 dark:text-gray-500 mb-3">
-            Based on {fmtAUD(midpoint)} salary midpoint. Estimate only — does not account for salary packaging or other offsets.
+            Estimate only — does not account for salary packaging or other offsets.
           </p>
 
           {/* Breakdown table */}
