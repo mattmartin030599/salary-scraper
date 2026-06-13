@@ -21,7 +21,8 @@ function superRate(): number {
   return 0.11
 }
 
-// ATO 2024–25 (Stage 3 tax cuts: 16% / 30%)
+// ATO 2025-26 resident tax rates (unchanged from 2024-25 Stage 3 cuts)
+// Source: https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents
 function calcIncomeTax(income: number): number {
   if (income <= 18_200)  return 0
   if (income <= 45_000)  return (income - 18_200) * 0.16
@@ -39,9 +40,11 @@ function calcLITO(income: number): number {
 }
 
 // Medicare Levy: 2% above the low-income threshold
+// 2024-25 thresholds (2025-26 not yet published; indexed upward annually)
+// Source: https://www.ato.gov.au/.../medicare-levy-reduction-for-low-income-earners
 function calcMedicare(income: number): number {
-  if (income <= 26_000)  return 0
-  if (income <= 32_500)  return (income - 26_000) * 0.1   // phase-in
+  if (income <= 27_222)  return 0
+  if (income <= 34_027)  return (income - 27_222) * 0.1   // phase-in at 10c/dollar
   return income * 0.02
 }
 
