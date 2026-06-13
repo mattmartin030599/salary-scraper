@@ -93,6 +93,86 @@ function parseSalaryLabel(label: string | null | undefined): { min: number; max:
   return null
 }
 
+// ─── Market salary fallback ────────────────────────────────────────────
+// When a listing has no parseable salary, fetch Seek search results for the same
+// job title and derive a market rate from current listings that do show salaries.
+
+async function fetchMarketSalary(
+  title: string,
+): Promise<{ min: number; max: number; count: number } | null> {
+  try {
+    const res = await fetch(
+      `https://au.seek.com/jobs?keywords=${encodeURIComponent(title)}`,
+      {
+        headers: {
+          'User-Agent':
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+          'Accept':          'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'Accept-Language': 'en-AU,en;q=0.9',
+          'Referer':         'https://au.seek.com/',
+        },
+        redirect: 'follow',
+        signal: AbortSignal.timeout(10_000),
+      },
+    )
+
+    if (!res.ok) return null
+
+    const html = await res.text()
+
+    // Seek embeds Apollo cache in: window.SEEK_APOLLO_DATA = {...};
+    const MARKER = 'window.SEEK_APOLLO_DATA = '
+    const idx = html.indexOf(MARKER)
+    if (idx === -1) return null
+
+    const jsonStart = idx + MARKER.length
+    const scriptEnd = html.indexOf('</script>', jsonStart)
+    if (scriptEnd === -1) return null
+
+    let jsonStr = html.substring(jsonStart, scriptEnd).trimEnd()
+    if (jsonStr.endsWith(';')) jsonStr = jsonStr.slice(0, -1)
+
+    const apollo: Record<string, unknown> = JSON.parse(jsonStr)
+
+    // JobSearchV6Data entries each represent one search result job card
+    const labels: string[] = []
+    for (const val of Object.values(apollo)) {
+      if (
+        typeof val === 'object' && val !== null &&
+        (val as Record<string, unknown>).__typename === 'JobSearchV6Data'
+      ) {
+        const label = (val as Record<string, unknown>).salaryLabel
+        if (typeof label === 'string' && /\$[\d,]+/.test(label)) {
+          labels.push(label)
+        }
+      }
+    }
+
+    if (labels.length === 0) return null
+
+    const parsed = labels
+      .map(parseSalaryLabel)
+      .filter((r): r is { min: number; max: number } => r !== null)
+
+    if (parsed.length === 0) return null
+
+    // Use IQR (25th–75th percentile) to avoid outliers
+    const mins  = parsed.map(r => r.min).sort((a, b) => a - b)
+    const maxes = parsed.map(r => r.max).sort((a, b) => a - b)
+    const p25   = Math.floor(mins.length  * 0.25)
+    const p75   = Math.min(Math.floor(maxes.length * 0.75), maxes.length - 1)
+
+    return {
+      min:   Math.round(mins[p25]  / 1000) * 1000,
+      max:   Math.round(maxes[p75] / 1000) * 1000,
+      count: parsed.length,
+    }
+  } catch (err) {
+    console.error('[lookup] fetchMarketSalary failed:', err)
+    return null
+  }
+}
+
 // ─── Main streaming handler ───────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
@@ -181,6 +261,38 @@ export async function POST(req: NextRequest) {
         const salary = parseSalaryLabel(salaryLabel)
 
         if (!salary) {
+          // ── Step 4b: Market salary fallback ─────────────────────────────────────────
+          send({ type: 'progress', message: 'No salary listed — checking similar roles…', percent: 75 })
+          const market = await fetchMarketSalary(jobTitle || '')
+
+          if (market && market.count >= 3) {
+            const searchCount = incrementCount(jobId)
+            addLookup({
+              jobId,
+              title:     jobTitle    || 'Unknown Position',
+              company:   jobCompany  || '',
+              location:  jobLocation,
+              salaryMin: market.min,
+              salaryMax: market.max,
+            })
+            send({
+              type:         'result',
+              jobId,
+              title:        jobTitle    || 'Unknown Position',
+              company:      jobCompany  || '',
+              location:     jobLocation,
+              salaryMin:    market.min,
+              salaryMax:    market.max,
+              salaryLabel:  salaryLabel ?? undefined,
+              currency:     'AUD',
+              searchCount,
+              percent:      100,
+              isMarketRate: true,
+              marketCount:  market.count,
+            })
+            return
+          }
+
           send({
             type: 'error',
             message: salaryLabel
