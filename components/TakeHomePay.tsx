@@ -2,13 +2,13 @@
 
 import { useState } from 'react'
 
-// ATO 2024-25 individual income tax brackets
+// ATO 2024–25 (Stage 3 tax cuts: 16% / 30%)
 function calcIncomeTax(income: number): number {
   if (income <= 18_200)  return 0
-  if (income <= 45_000)  return (income - 18_200) * 0.19
-  if (income <= 135_000) return 5_092 + (income - 45_000) * 0.325
-  if (income <= 190_000) return 34_342 + (income - 135_000) * 0.37
-  return 54_742 + (income - 190_000) * 0.45
+  if (income <= 45_000)  return (income - 18_200) * 0.16
+  if (income <= 135_000) return 4_288 + (income - 45_000) * 0.30
+  if (income <= 190_000) return 31_288 + (income - 135_000) * 0.37
+  return 51_638 + (income - 190_000) * 0.45
 }
 
 // Low Income Tax Offset (LITO) — reduces to 0 above $66,667
