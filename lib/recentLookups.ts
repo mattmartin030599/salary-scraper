@@ -1,9 +1,4 @@
-import * as fs from 'fs'
-import * as path from 'path'
-
-const DATA_DIR  = path.join(process.cwd(), 'data')
-const DATA_FILE = path.join(DATA_DIR, 'recent.json')
-const MAX       = 20
+import { currentFYStart } from './financialYear'
 
 export interface RecentLookup {
   jobId:     string
@@ -15,37 +10,46 @@ export interface RecentLookup {
   timestamp: number   // ms since epoch
 }
 
-let cache: RecentLookup[] | null = null
+const MAX = 20
 
-function load(): RecentLookup[] {
-  if (cache) return cache
-  try {
-    fs.mkdirSync(DATA_DIR, { recursive: true })
-    cache = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'))
-  } catch {
-    cache = []
-  }
-  return cache!
+function kvKey(): string {
+  return `recent_fy${currentFYStart()}`
 }
 
-function persist(list: RecentLookup[]) {
-  try {
-    fs.mkdirSync(DATA_DIR, { recursive: true })
-    fs.writeFileSync(DATA_FILE, JSON.stringify(list, null, 2))
-  } catch (e) {
-    console.warn('[recentLookups] persist failed:', e)
+// ─── KV abstraction ─────────────────────────────────────────────────────────
+// Uses @vercel/kv when KV_REST_API_URL is set (Vercel deployment).
+// Falls back to an in-process Map for local dev — data is per-instance
+// but that's fine for development.
+
+const _mem = new Map<string, unknown>()
+
+async function kvGet<T>(key: string): Promise<T | null> {
+  if (!process.env.KV_REST_API_URL) {
+    return (_mem.get(key) ?? null) as T | null
   }
+  const { kv } = await import('@vercel/kv')
+  return kv.get<T>(key)
 }
 
-export function addLookup(entry: Omit<RecentLookup, 'timestamp'>): void {
-  const list = load()
-  // Remove any existing entry for this job so it bubbles to top
+async function kvSet(key: string, value: unknown): Promise<void> {
+  if (!process.env.KV_REST_API_URL) {
+    _mem.set(key, value)
+    return
+  }
+  const { kv } = await import('@vercel/kv')
+  await kv.set(key, value)
+}
+
+// ─── Public API ─────────────────────────────────────────────────────────────
+
+export async function addLookup(entry: Omit<RecentLookup, 'timestamp'>): Promise<void> {
+  const key      = kvKey()
+  const list     = (await kvGet<RecentLookup[]>(key)) ?? []
   const filtered = list.filter(l => l.jobId !== entry.jobId)
   const updated  = [{ ...entry, timestamp: Date.now() }, ...filtered].slice(0, MAX)
-  cache = updated
-  persist(updated)
+  await kvSet(key, updated)
 }
 
-export function getRecent(): RecentLookup[] {
-  return load()
+export async function getRecent(): Promise<RecentLookup[]> {
+  return (await kvGet<RecentLookup[]>(kvKey())) ?? []
 }
