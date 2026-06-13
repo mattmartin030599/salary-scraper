@@ -15,6 +15,15 @@ const NAV = [
     ),
   },
   {
+    label: 'Pay Calculator',
+    href: '/calculator',
+    icon: (
+      <svg viewBox="0 0 20 20" fill="currentColor" className="w-[18px] h-[18px]">
+        <path fillRule="evenodd" d="M6 2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H6Zm1 2a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2H7Zm-1 4a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1Zm5-1a1 1 0 1 0 0 2h1a1 1 0 1 0 0-2h-1Zm-5 4a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1Zm5-1a1 1 0 1 0 0 2h1a1 1 0 1 0 0-2h-1Z" clipRule="evenodd"/>
+      </svg>
+    ),
+  },
+  {
     label: 'Industry salaries',
     href: '/explore',
     icon: (
