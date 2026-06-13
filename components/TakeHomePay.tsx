@@ -46,25 +46,28 @@ function calcMedicare(income: number): number {
 }
 
 // HECS/HELP repayment bands (ATO 2024-25)
+// Each [threshold, rate] means: income below this threshold uses this rate.
+// The leading [54_435, 0] ensures incomes below the minimum threshold pay nothing.
 function calcHECS(income: number): number {
   const bands: [number, number][] = [
-    [54_435,   0.010],
-    [62_851,   0.020],
-    [66_621,   0.025],
-    [70_619,   0.030],
-    [74_856,   0.035],
-    [79_347,   0.040],
-    [84_108,   0.045],
-    [89_155,   0.050],
-    [94_504,   0.055],
-    [100_175,  0.060],
-    [106_186,  0.065],
-    [112_557,  0.070],
-    [119_310,  0.075],
-    [126_468,  0.080],
-    [134_057,  0.085],
-    [142_100,  0.090],
-    [150_626,  0.095],
+    [54_435,   0],      // below minimum threshold → nil
+    [62_851,   0.010],
+    [66_621,   0.020],
+    [70_619,   0.025],
+    [74_856,   0.030],
+    [79_347,   0.035],
+    [84_108,   0.040],
+    [89_155,   0.045],
+    [94_504,   0.050],
+    [100_175,  0.055],
+    [106_186,  0.060],
+    [112_557,  0.065],
+    [119_310,  0.070],
+    [126_468,  0.075],
+    [134_057,  0.080],
+    [142_100,  0.085],
+    [150_626,  0.090],
+    [159_664,  0.095],
     [Infinity, 0.100],
   ]
   for (const [threshold, rate] of bands) {
