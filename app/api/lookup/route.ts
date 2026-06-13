@@ -116,13 +116,16 @@ async function fetchMarketSalary(
       },
     )
 
+    console.log('[market] seek search status:', res.status, 'finalUrl:', res.url)
     if (!res.ok) return null
 
     const html = await res.text()
+    console.log('[market] html length:', html.length)
 
     // Seek embeds Apollo cache in: window.SEEK_APOLLO_DATA = {...};
     const MARKER = 'window.SEEK_APOLLO_DATA = '
     const idx = html.indexOf(MARKER)
+    console.log('[market] MARKER found:', idx !== -1)
     if (idx === -1) return null
 
     const jsonStart = idx + MARKER.length
@@ -148,6 +151,7 @@ async function fetchMarketSalary(
       }
     }
 
+    console.log('[market] JobSearchV6Data entries with $salary:', labels.length)
     if (labels.length === 0) return null
 
     const parsed = labels
