@@ -27,6 +27,8 @@ interface JobResult {
   salaryMax: number
   currency: string
   searchCount: number
+  isMarketRate?: boolean
+  marketCount?: number
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
