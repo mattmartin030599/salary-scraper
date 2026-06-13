@@ -11,6 +11,8 @@ interface ResultCardProps {
   currency: string
   jobId: string
   searchCount: number
+  isMarketRate?: boolean
+  marketCount?: number
 }
 
 function fmt(n: number) {
@@ -25,6 +27,8 @@ export default function ResultCard({
   salaryMax,
   jobId,
   searchCount,
+  isMarketRate,
+  marketCount,
 }: ResultCardProps) {
   const midpoint = Math.round((salaryMin + salaryMax) / 2 / 1000) * 1000
   const same = salaryMin === salaryMax
@@ -78,7 +82,7 @@ export default function ResultCard({
         {/* Range label */}
         <div className="flex items-baseline justify-between mb-1">
           <span className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">
-            Estimated salary range
+            {isMarketRate ? 'Market rate — similar roles' : 'Estimated salary range'}
           </span>
           <span className="text-xs text-gray-400 dark:text-gray-500">AUD / year</span>
         </div>
@@ -132,9 +136,15 @@ export default function ResultCard({
 
         <TakeHomePay salaryMin={salaryMin} salaryMax={salaryMax} />
 
-        <p className="mt-4 text-xs text-gray-400 dark:text-gray-600">
-          Based on Seek&rsquo;s internal salary filter. Range reflects stored brackets, not the exact figure entered by the employer.
-        </p>
+        {isMarketRate ? (
+          <p className="mt-4 text-xs text-amber-600 dark:text-amber-500">
+            ⚠ This employer didn&rsquo;t disclose a salary. Range is derived from {marketCount} similar listings currently on Seek and is an estimate only.
+          </p>
+        ) : (
+          <p className="mt-4 text-xs text-gray-400 dark:text-gray-600">
+            Based on Seek&rsquo;s internal salary filter. Range reflects stored brackets, not the exact figure entered by the employer.
+          </p>
+        )}
       </div>
     </div>
   )
