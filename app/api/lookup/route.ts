@@ -101,57 +101,33 @@ async function fetchMarketSalary(
   title: string,
 ): Promise<{ min: number; max: number; count: number } | null> {
   try {
-    const res = await fetch(
-      `https://au.seek.com/jobs?keywords=${encodeURIComponent(title)}`,
-      {
-        headers: {
-          'User-Agent':
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-          'Accept':          'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-          'Accept-Language': 'en-AU,en;q=0.9',
-          'Referer':         'https://au.seek.com/',
-        },
-        redirect: 'follow',
-        signal: AbortSignal.timeout(10_000),
-      },
-    )
+    // Seek's public v5 search API — returns JSON with salaryLabel per job card
+    const url = `https://jobsearch-api.cloud.seek.com.au/v5/search?` +
+      `keywords=${encodeURIComponent(title)}&siteKey=AU-Main&locale=en-AU&pageSize=20`
 
-    console.log('[market] seek search status:', res.status, 'finalUrl:', res.url)
+    const res = await fetch(url, {
+      headers: {
+        'Accept':                'application/json',
+        'Accept-Language':       'en-AU,en;q=0.9',
+        'Origin':                'https://au.seek.com',
+        'Referer':               'https://au.seek.com/',
+        'Seek-Request-Brand':    'seek',
+        'Seek-Request-Country':  'AU',
+        'User-Agent':
+          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+      },
+      signal: AbortSignal.timeout(10_000),
+    })
+
     if (!res.ok) return null
 
-    const html = await res.text()
-    console.log('[market] html length:', html.length)
+    const json = await res.json() as { data?: Array<{ salaryLabel?: string }> }
+    const jobs = json?.data ?? []
 
-    // Seek embeds Apollo cache in: window.SEEK_APOLLO_DATA = {...};
-    const MARKER = 'window.SEEK_APOLLO_DATA = '
-    const idx = html.indexOf(MARKER)
-    console.log('[market] MARKER found:', idx !== -1)
-    if (idx === -1) return null
+    const labels = jobs
+      .map(j => j.salaryLabel)
+      .filter((l): l is string => typeof l === 'string' && /\$[\d,]+/.test(l))
 
-    const jsonStart = idx + MARKER.length
-    const scriptEnd = html.indexOf('</script>', jsonStart)
-    if (scriptEnd === -1) return null
-
-    let jsonStr = html.substring(jsonStart, scriptEnd).trimEnd()
-    if (jsonStr.endsWith(';')) jsonStr = jsonStr.slice(0, -1)
-
-    const apollo: Record<string, unknown> = JSON.parse(jsonStr)
-
-    // JobSearchV6Data entries each represent one search result job card
-    const labels: string[] = []
-    for (const val of Object.values(apollo)) {
-      if (
-        typeof val === 'object' && val !== null &&
-        (val as Record<string, unknown>).__typename === 'JobSearchV6Data'
-      ) {
-        const label = (val as Record<string, unknown>).salaryLabel
-        if (typeof label === 'string' && /\$[\d,]+/.test(label)) {
-          labels.push(label)
-        }
-      }
-    }
-
-    console.log('[market] JobSearchV6Data entries with $salary:', labels.length)
     if (labels.length === 0) return null
 
     const parsed = labels
