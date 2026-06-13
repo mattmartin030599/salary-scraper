@@ -93,7 +93,7 @@ function parseSalaryLabel(label: string | null | undefined): { min: number; max:
   return null
 }
 
-// ─── Main streaming handler ───────────────────────────────────────────────────// ─── Main streaming handler ───────────────────────────────────────────────────
+// ─── Main streaming handler ───────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
   const encoder = new TextEncoder()
@@ -183,8 +183,9 @@ export async function POST(req: NextRequest) {
         if (!salary) {
           send({
             type: 'error',
-            message:
-              "Couldn't find a salary for this listing. The employer hasn't disclosed salary details on Seek.",
+            message: salaryLabel
+              ? `Seek shows "${salaryLabel}" for this listing — no dollar figure to calculate from.`
+              : "The employer hasn't disclosed salary details on Seek.",
           })
           return
         }
