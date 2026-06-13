@@ -33,17 +33,18 @@ export function estimateTakeHome(grossAnnual: number): {
   monthly: number
   fortnightly: number
 } {
+  // ATO 2024–25 (Stage 3 tax cuts: 16% / 30%)
   let tax = 0
   if (grossAnnual <= 18200) {
     tax = 0
   } else if (grossAnnual <= 45000) {
-    tax = (grossAnnual - 18200) * 0.19
-  } else if (grossAnnual <= 120000) {
-    tax = 5092 + (grossAnnual - 45000) * 0.325
-  } else if (grossAnnual <= 180000) {
-    tax = 29467 + (grossAnnual - 120000) * 0.37
+    tax = (grossAnnual - 18200) * 0.16
+  } else if (grossAnnual <= 135000) {
+    tax = 4288 + (grossAnnual - 45000) * 0.30
+  } else if (grossAnnual <= 190000) {
+    tax = 31288 + (grossAnnual - 135000) * 0.37
   } else {
-    tax = 51667 + (grossAnnual - 180000) * 0.45
+    tax = 51638 + (grossAnnual - 190000) * 0.45
   }
 
   // Low Income Tax Offset (LITO)
