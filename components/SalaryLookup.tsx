@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, FormEvent } from 'react'
 import ResultCard from './ResultCard'
 import AppStoreBadges from './AppStoreBadges'
 import AdUnit from './AdUnit'
+import DonationBanner from './DonationBanner'
 import { saveMyLookup } from './YourRecentLookups'
 import { AD_SLOTS } from '@/lib/adSlots'
 
@@ -221,8 +222,8 @@ export default function SalaryLookup() {
   return (
     <div className="w-full max-w-xl mx-auto">
 
-      {/* Search form — always visible unless showing result */}
-      {phase !== 'done' && (
+      {/* Search form — full when idle/error, compact above result */}
+      {phase !== 'done' ? (
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <div className="relative">
             <input
@@ -261,6 +262,26 @@ export default function SalaryLookup() {
           </button>
 
           <AppStoreBadges />
+        </form>
+      ) : (
+        /* Compact search bar — stays above result for quick next lookup */
+        <form onSubmit={handleSubmit} className="flex gap-2 mb-5">
+          <input
+            type="url"
+            value={url}
+            onChange={e => { setUrl(e.target.value); setErrorMsg('') }}
+            placeholder="Paste another Seek job URL…"
+            autoComplete="off"
+            spellCheck={false}
+            className="flex-1 min-w-0 rounded-lg border border-gray-300 bg-white dark:bg-gray-900 dark:border-gray-700 px-3 py-2 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-600 outline-none focus:border-brand-500 dark:focus:border-brand-600 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900 transition-all"
+          />
+          <button
+            type="submit"
+            disabled={!url.trim()}
+            className="shrink-0 rounded-lg bg-brand-600 hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold px-4 py-2 transition-colors"
+          >
+            Search
+          </button>
         </form>
       )}
 
@@ -323,16 +344,9 @@ export default function SalaryLookup() {
       {phase === 'done' && result && (
         <div className="animate-fadeIn">
           <ResultCard {...result} />
+          <DonationBanner />
           {/* Ad — shown after the user gets their result */}
           <AdUnit slot={AD_SLOTS.RESULT_CARD} format="auto" className="mt-6 min-h-[100px]" />
-          <div className="mt-6 text-center">
-            <button
-              onClick={handleReset}
-              className="text-sm text-gray-400 hover:text-brand-600 transition-colors"
-            >
-              ← Look up another job
-            </button>
-          </div>
         </div>
       )}
     </div>
