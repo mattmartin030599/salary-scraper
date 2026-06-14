@@ -76,57 +76,6 @@ function calcMedicare(income: number, year: TaxYear): number {
   return income * 0.02
 }
 
-// HECS/HELP — marginal system from 2025-26; flat rate system prior
-function calcHECS(income: number, year: TaxYear): number {
-  if (year === '2025-26') {
-    // ATO marginal system
-    if (income <= 67_000)  return 0
-    if (income <= 125_000) return Math.round((income - 67_000) * 0.15)
-    if (income <= 179_285) return Math.round(8_700 + (income - 125_000) * 0.17)
-    return Math.round(income * 0.10)
-  }
-
-  // Flat-rate system: % of total income above minimum threshold
-  type Band = [number, number] // [min_income, rate]
-  const bands: Record<Exclude<TaxYear,'2025-26'>, Band[]> = {
-    '2024-25': [
-      [54_435,0.01],[62_850,0.02],[66_621,0.025],[70_619,0.03],
-      [74_856,0.035],[79_347,0.04],[84_108,0.045],[89_155,0.05],
-      [94_504,0.055],[100_175,0.06],[106_186,0.065],[112_557,0.07],
-      [119_310,0.075],[126_469,0.08],[134_057,0.085],[142_101,0.09],
-      [150_627,0.095],[160_000,0.10],
-    ],
-    '2023-24': [
-      [51_550,0.01],[59_519,0.02],[63_090,0.025],[66_875,0.03],
-      [70_888,0.035],[75_141,0.04],[79_650,0.045],[84_429,0.05],
-      [89_494,0.055],[94_865,0.06],[100_557,0.065],[106_591,0.07],
-      [112_986,0.075],[119_765,0.08],[126_951,0.085],[134_569,0.09],
-      [142_643,0.095],[151_201,0.10],
-    ],
-    '2022-23': [
-      [48_361,0.01],[55_837,0.02],[59_187,0.025],[62_739,0.03],
-      [66_503,0.035],[70_494,0.04],[74_723,0.045],[79_207,0.05],
-      [83_959,0.055],[88_997,0.06],[94_337,0.065],[99_997,0.07],
-      [105_997,0.075],[112_356,0.08],[119_098,0.085],[126_244,0.09],
-      [133_818,0.095],[141_848,0.10],
-    ],
-    '2021-22': [
-      [47_014,0.01],[54_283,0.02],[57_539,0.025],[60_992,0.03],
-      [64_652,0.035],[68_530,0.04],[72_642,0.045],[76_999,0.05],
-      [81_619,0.055],[86_516,0.06],[91_707,0.065],[97_209,0.07],
-      [103_042,0.075],[109_225,0.08],[115_779,0.085],[122_728,0.09],
-      [130_092,0.095],[138_297,0.10],
-    ],
-  }
-  const table = bands[year as Exclude<TaxYear,'2025-26'>]
-  let rate = 0
-  for (const [min, r] of table) {
-    if (income >= min) rate = r
-    else break
-  }
-  return rate > 0 ? Math.round(income * rate) : 0
-}
-
 function getSuperRate(year: TaxYear): number {
   switch (year) {
     case '2025-26': return 0.12
@@ -152,6 +101,53 @@ function getMarginalRate(income: number, year: TaxYear): number {
   return 0.45
 }
 
+// ─── HECS/HELP compulsory repayment ──────────────────────────────────────────
+
+function calcHECS(income: number, year: TaxYear): number {
+  // ATO HELP/HECS compulsory repayment bands [threshold, rate]
+  const bands: [number, number][] =
+    year === '2025-26' || year === '2024-25'
+      ? [
+          [54_435, 0.010], [62_850, 0.020], [66_621, 0.025],
+          [70_619, 0.030], [74_856, 0.035], [79_347, 0.040],
+          [84_108, 0.045], [89_154, 0.050], [94_504, 0.055],
+          [100_175, 0.060], [106_186, 0.065], [112_557, 0.070],
+          [119_310, 0.075], [126_468, 0.080], [134_057, 0.085],
+          [142_100, 0.090], [150_625, 0.095], [159_664, 0.100],
+        ]
+      : year === '2023-24'
+      ? [
+          [51_550, 0.010], [59_518, 0.020], [63_089, 0.025],
+          [66_875, 0.030], [70_888, 0.035], [75_140, 0.040],
+          [79_649, 0.045], [84_429, 0.050], [89_494, 0.055],
+          [94_865, 0.060], [100_557, 0.065], [106_590, 0.070],
+          [112_985, 0.075], [119_764, 0.080], [126_950, 0.085],
+          [134_567, 0.090], [142_641, 0.095], [151_200, 0.100],
+        ]
+      : year === '2022-23'
+      ? [
+          [48_361, 0.010], [55_836, 0.020], [59_186, 0.025],
+          [62_738, 0.030], [66_502, 0.035], [70_492, 0.040],
+          [74_722, 0.045], [79_206, 0.050], [83_958, 0.055],
+          [88_996, 0.060], [94_336, 0.065], [99_996, 0.070],
+          [105_996, 0.075], [112_355, 0.080], [119_096, 0.085],
+          [126_242, 0.090], [133_816, 0.095], [141_848, 0.100],
+        ]
+      : [ // 2021-22
+          [47_014, 0.010], [54_283, 0.020], [57_539, 0.025],
+          [60_991, 0.030], [64_651, 0.035], [68_529, 0.040],
+          [72_641, 0.045], [77_000, 0.050], [81_620, 0.055],
+          [86_518, 0.060], [91_709, 0.065], [97_212, 0.070],
+          [103_045, 0.075], [109_227, 0.080], [115_781, 0.085],
+          [122_728, 0.090], [130_092, 0.095], [137_897, 0.100],
+        ]
+
+  for (let i = bands.length - 1; i >= 0; i--) {
+    if (income >= bands[i][0]) return income * bands[i][1]
+  }
+  return 0
+}
+
 // ─── Main calculation ─────────────────────────────────────────────────────────
 
 interface CalcResult {
@@ -163,7 +159,7 @@ interface CalcResult {
   lmito:        number
   tax:          number   // net income tax after offsets
   medicare:     number
-  hecs:         number
+  hecs:         number   // HECS/HELP compulsory repayment (0 if not applicable)
   net:          number   // annual take-home
   effectiveRate: number  // (tax + medicare) / base
   marginalRate:  number
@@ -172,21 +168,21 @@ interface CalcResult {
 function calculate(
   annualBase: number,
   salaryIncludesSuper: boolean,
-  includeHECS: boolean,
   year: TaxYear,
+  includeHECS: boolean,
 ): CalcResult {
   const sg = getSuperRate(year)
 
   // If salary includes super, back-calculate base
-  const base      = salaryIncludesSuper ? Math.round(annualBase / (1 + sg)) : annualBase
-  const superAmt  = salaryIncludesSuper ? annualBase - base : Math.round(base * sg)
+  const base      = salaryIncludesSuper ? annualBase / (1 + sg) : annualBase
+  const superAmt  = salaryIncludesSuper ? annualBase - base : base * sg
   const annualGross = base + superAmt
 
   const rawTax  = calcIncomeTax(base, year)
   const lito    = calcLITO(base)
   const lmito   = calcLMITO(base, year)
-  const tax     = Math.max(0, Math.round(rawTax - lito - lmito))
-  const medicare = Math.round(calcMedicare(base, year))
+  const tax     = Math.max(0, rawTax - lito - lmito)
+  const medicare = calcMedicare(base, year)
   const hecs    = includeHECS ? calcHECS(base, year) : 0
   const net     = base - tax - medicare - hecs
 
@@ -223,8 +219,10 @@ function getPercentile(income: number): number {
 // ─── Formatting helpers ───────────────────────────────────────────────────────
 
 function fmtAUD(n: number): string {
-  return Math.round(Math.abs(n)).toLocaleString('en-AU', {
-    style: 'currency', currency: 'AUD', maximumFractionDigits: 0,
+  return Math.abs(n).toLocaleString('en-AU', {
+    style: 'currency', currency: 'AUD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   })
 }
 
@@ -342,7 +340,7 @@ function TaxBreakdownBar({ base, year }: { base: number; year: TaxYear }) {
         {brackets.map((b, i) => {
           const applies = base > b.from
           const taxable = applies ? Math.max(0, Math.min(base, b.to === Infinity ? base : b.to) - b.from) : 0
-          const tax     = Math.round(taxable * b.rate)
+          const tax     = taxable * b.rate
           return (
             <div key={i} className={`flex items-center gap-2 text-xs ${applies ? 'opacity-100' : 'opacity-30'}`}>
               <span className={`w-3 h-3 rounded-sm shrink-0 ${colors[i]}`} />
@@ -396,163 +394,6 @@ function IncomePercentile({ income }: { income: number }) {
   )
 }
 
-// ─── HECS repayment calculator ────────────────────────────────────────────────
-
-function HECSRepayment({
-  annualRepayment, year,
-}: {
-  annualRepayment: number; year: TaxYear
-}) {
-  const [debtStr, setDebtStr]           = useState('30000')
-  const [indexation, setIndexation]     = useState(3.5)
-  const [wagePct, setWagePct]           = useState(3)
-  const [showDetails, setShowDetails]   = useState(false)
-
-  const debt = parseFloat(debtStr.replace(/[^\d.]/g, '')) || 0
-
-  // Project repayment timeline
-  const timeline = useMemo(() => {
-    if (debt <= 0 || annualRepayment <= 0) return []
-    let balance    = debt
-    let income     = annualRepayment / (calcHECS(annualRepayment > 0 ? 80_000 : 1, year) / 80_000 || 0.01)
-    // Simpler: just use the annual repayment amount provided
-    const rows: { year: number; balance: number; repayment: number; interest: number }[] = []
-    const MAX_YEARS = 30
-    for (let y = 0; y < MAX_YEARS; y++) {
-      const interest  = Math.round(balance * (indexation / 100))
-      const repayment = Math.min(annualRepayment, balance + interest)
-      balance = balance + interest - repayment
-      rows.push({ year: new Date().getFullYear() + y, balance: Math.max(0, balance), repayment, interest })
-      if (balance <= 0) break
-    }
-    return rows
-  }, [debt, annualRepayment, indexation, year])
-
-  if (annualRepayment <= 0) {
-    return (
-      <div className="text-sm text-gray-400 dark:text-gray-500 text-center py-4">
-        Your income is below the HECS/HELP repayment threshold. No repayments required.
-      </div>
-    )
-  }
-
-  const repaymentYears = timeline.length
-
-  return (
-    <div className="space-y-4">
-      <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Student loan repayment</h3>
-
-      <div className="grid sm:grid-cols-2 gap-3">
-        {/* Debt input */}
-        <div>
-          <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1.5">Current loan balance</label>
-          <div className="flex items-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 focus-within:border-brand-400 dark:focus-within:border-brand-600 transition-colors">
-            <span className="text-sm text-gray-400 mr-1">$</span>
-            <input
-              type="text"
-              inputMode="numeric"
-              value={debtStr ? Number(debtStr.replace(/[^\d]/g,'')).toLocaleString('en-AU') : ''}
-              onChange={e => setDebtStr(e.target.value.replace(/[^\d]/g,''))}
-              className="flex-1 bg-transparent text-sm font-medium text-gray-900 dark:text-gray-100 outline-none"
-              placeholder="30,000"
-            />
-          </div>
-        </div>
-
-        {/* Indexation */}
-        <div>
-          <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1.5">
-            Debt indexation rate: <strong>{indexation}% p.a.</strong>
-          </label>
-          <input
-            type="range" min={0} max={10} step={0.5}
-            value={indexation}
-            onChange={e => setIndexation(parseFloat(e.target.value))}
-            className="w-full accent-brand-500"
-          />
-          <div className="flex justify-between text-xs text-gray-400 dark:text-gray-600 mt-0.5">
-            <span>0%</span><span>5%</span><span>10%</span>
-          </div>
-        </div>
-      </div>
-
-      {debt > 0 && (
-        <>
-          <div className="rounded-xl bg-brand-50 dark:bg-brand-950/30 border border-brand-100 dark:border-brand-900 px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Annual repayment</p>
-              <p className="text-xl font-bold text-brand-600 dark:text-brand-400">{fmtAUD(annualRepayment)}</p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Estimated payoff</p>
-              <p className="text-xl font-bold text-gray-800 dark:text-gray-200">
-                {repaymentYears >= 30 ? '30+ years' : `${repaymentYears} year${repaymentYears !== 1 ? 's' : ''}`}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Monthly repayment</p>
-              <p className="text-xl font-bold text-gray-800 dark:text-gray-200">{fmtAUD(annualRepayment / 12)}</p>
-            </div>
-          </div>
-
-          {/* Repayment chart (bar) */}
-          {timeline.length > 0 && (
-            <div>
-              <button
-                onClick={() => setShowDetails(d => !d)}
-                className="text-xs text-brand-600 dark:text-brand-400 hover:underline mb-2"
-              >
-                {showDetails ? 'Hide' : 'Show'} year-by-year breakdown
-              </button>
-              {showDetails && (
-                <div className="overflow-x-auto">
-                  <table className="w-full text-xs">
-                    <thead>
-                      <tr className="text-left text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-800">
-                        <th className="pb-1.5 pr-3">Year</th>
-                        <th className="pb-1.5 pr-3 text-right">Repayment</th>
-                        <th className="pb-1.5 pr-3 text-right">Indexation</th>
-                        <th className="pb-1.5 text-right">Balance</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {timeline.map((row, i) => (
-                        <tr key={i} className="border-b border-gray-50 dark:border-gray-800/50">
-                          <td className="py-1.5 pr-3 text-gray-600 dark:text-gray-400">{row.year}</td>
-                          <td className="py-1.5 pr-3 text-right text-green-600 dark:text-green-400">−{fmtAUD(row.repayment)}</td>
-                          <td className="py-1.5 pr-3 text-right text-red-500 dark:text-red-400">+{fmtAUD(row.interest)}</td>
-                          <td className="py-1.5 text-right tabular-nums text-gray-700 dark:text-gray-300 font-medium">{fmtAUD(row.balance)}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-
-              {/* Balance bar chart */}
-              <div className="mt-3 flex items-end gap-0.5 h-16">
-                {timeline.map((row, i) => {
-                  const maxDebt = debt
-                  const heightPct = (row.balance / maxDebt) * 100
-                  return (
-                    <div
-                      key={i}
-                      className="flex-1 bg-brand-200 dark:bg-brand-800 rounded-t transition-all duration-300 hover:bg-brand-400 dark:hover:bg-brand-600 cursor-default"
-                      style={{ height: `${Math.max(2, heightPct)}%` }}
-                      title={`${row.year}: ${fmtAUD(row.balance)} remaining`}
-                    />
-                  )
-                })}
-              </div>
-              <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Debt balance by year (assumes {indexation}% indexation, current income)</p>
-            </div>
-          )}
-        </>
-      )}
-    </div>
-  )
-}
-
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export default function PayCalculator() {
@@ -560,10 +401,10 @@ export default function PayCalculator() {
   const [payCycle,   setPayCycle]   = useState<PayCycle>('annual')
   const [taxYear,    setTaxYear]    = useState<TaxYear>('2025-26')
   const [incSuper,   setIncSuper]   = useState(false)
-  const [incHECS,    setIncHECS]    = useState(false)
   const [proRata,    setProRata]    = useState(false)
   const [hoursWeek,  setHoursWeek]  = useState(38)
-  const [activeTab,  setActiveTab]  = useState<'breakdown' | 'percentile' | 'hecs'>('breakdown')
+  const [incHECS,    setIncHECS]    = useState(false)
+  const [activeTab,  setActiveTab]  = useState<'breakdown' | 'percentile'>('breakdown')
 
   // Convert input to annual
   const inputNum = parseFloat(inputStr.replace(/[^\d.]/g, '')) || 0
@@ -572,8 +413,8 @@ export default function PayCalculator() {
   const annualInput = proRata && payCycle !== 'hourly' ? annualRaw * (hoursWeek / 38) : annualRaw
 
   const result = useMemo(
-    () => annualInput > 0 ? calculate(annualInput, incSuper, incHECS, taxYear) : null,
-    [annualInput, incSuper, incHECS, taxYear],
+    () => annualInput > 0 ? calculate(annualInput, incSuper, taxYear, incHECS) : null,
+    [annualInput, incSuper, taxYear, incHECS],
   )
 
   const sg = getSuperRate(taxYear)
@@ -650,14 +491,14 @@ export default function PayCalculator() {
                 onChange={setIncSuper}
               />
               <Toggle
-                label="Has HECS / HELP student debt"
-                checked={incHECS}
-                onChange={v => { setIncHECS(v); if (v) setActiveTab('hecs') }}
-              />
-              <Toggle
                 label="Part-time / Pro-rata"
                 checked={proRata}
                 onChange={setProRata}
+              />
+              <Toggle
+                label="Has HECS / HELP student debt"
+                checked={incHECS}
+                onChange={setIncHECS}
               />
             </div>
 
@@ -688,7 +529,9 @@ export default function PayCalculator() {
                 <Stat label="Effective tax rate"    value={fmtRate(result.effectiveRate)} />
                 <Stat label="Marginal rate"          value={fmtRate(result.marginalRate)} />
                 <Stat label="Super (employer)"       value={fmtAUD(result.superAmt)} />
-                {incHECS && <Stat label="HECS repayment" value={fmtAUD(result.hecs)} />}
+                {incHECS && result.hecs > 0 && (
+                  <Stat label="HECS repayment"       value={fmtAUD(result.hecs)} />
+                )}
               </div>
             </div>
           )}
@@ -771,7 +614,7 @@ export default function PayCalculator() {
                       values={RESULT_COLS.map(c => result.medicare / c.div)}
                       negative
                     />
-                    {incHECS && (
+                    {incHECS && result.hecs > 0 && (
                       <ResultRow
                         label="HECS/HELP repayment"
                         values={RESULT_COLS.map(c => result.hecs / c.div)}
@@ -805,7 +648,6 @@ export default function PayCalculator() {
                 {[
                   { key: 'breakdown',  label: 'Tax brackets' },
                   { key: 'percentile', label: 'Income range' },
-                  ...(incHECS ? [{ key: 'hecs', label: 'Student loan' }] : []),
                 ].map(t => (
                   <button
                     key={t.key}
@@ -829,9 +671,6 @@ export default function PayCalculator() {
                 {activeTab === 'percentile' && (
                   <IncomePercentile income={result.base} />
                 )}
-                {activeTab === 'hecs' && incHECS && (
-                  <HECSRepayment annualRepayment={result.hecs} year={taxYear} />
-                )}
               </div>
             </div>
           )}
@@ -840,11 +679,7 @@ export default function PayCalculator() {
           {result && (
             <p className="text-xs text-gray-400 dark:text-gray-600 px-1">
               Estimate only for FY{taxYear} — does not include Medicare levy surcharge, private health rebate,
-              salary packaging, or other individual circumstances. Verify with the ATO or a registered tax agent.
-              HECS rates sourced from{' '}
-              <a href="https://www.ato.gov.au/tax-rates-and-codes/study-and-training-support-loans-rates-and-repayment-thresholds" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-600 dark:hover:text-gray-400">
-                ato.gov.au
-              </a>.
+              salary packaging, or other individual circumstances. HECS rates sourced from ato.gov.au. Verify with the ATO or a registered tax agent.
             </p>
           )}
         </div>
