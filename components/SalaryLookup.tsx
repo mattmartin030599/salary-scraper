@@ -235,12 +235,12 @@ export default function SalaryLookup() {
               autoComplete="off"
               spellCheck={false}
               className={[
-                'w-full rounded-xl border px-4 py-3.5 text-base sm:text-sm text-gray-900 dark:text-gray-100',
+                'w-full rounded-xl border px-4 py-4 text-base sm:text-[15px] text-gray-900 dark:text-gray-100',
                 'placeholder:text-gray-400 dark:placeholder:text-gray-600 outline-none transition-all',
                 'disabled:opacity-60 disabled:cursor-not-allowed',
                 errorMsg
                   ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-2 focus:ring-red-200 dark:bg-red-950/30 dark:border-red-800'
-                  : 'border-gray-300 bg-white shadow-sm dark:bg-gray-900 dark:border-gray-700 focus:border-brand-500 dark:focus:border-brand-600 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900',
+                  : 'border-gray-300 bg-white shadow-soft dark:bg-gray-900 dark:border-gray-700 focus:border-brand-500 dark:focus:border-brand-500 focus:ring-4 focus:ring-brand-100 dark:focus:ring-brand-900/50',
               ].join(' ')}
             />
           </div>
@@ -252,13 +252,25 @@ export default function SalaryLookup() {
           <button
             type="submit"
             disabled={phase === 'loading' || !url.trim()}
-            className={[
-              'w-full rounded-xl py-3.5 text-sm font-semibold transition-all',
-              'disabled:opacity-50 disabled:cursor-not-allowed',
-              'bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white shadow-sm',
-            ].join(' ')}
+            className="btn-brand w-full py-4 text-[15px]"
           >
-            {phase === 'loading' ? 'Scanning…' : 'Reveal Salary'}
+            {phase === 'loading' ? (
+              <>
+                <span className="flex gap-1 items-center">
+                  {[0, 1, 2].map(i => (
+                    <span key={i} className="w-1.5 h-1.5 rounded-full bg-white/90 animate-bounce" style={{ animationDelay: `${i * 150}ms` }} />
+                  ))}
+                </span>
+                Scanning…
+              </>
+            ) : (
+              <>
+                <svg viewBox="0 0 20 20" fill="currentColor" className="w-[18px] h-[18px]">
+                  <path fillRule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clipRule="evenodd" />
+                </svg>
+                Reveal Salary
+              </>
+            )}
           </button>
 
           <AppStoreBadges />

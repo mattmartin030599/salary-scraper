@@ -10,7 +10,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,   // prevents iOS auto-zoom on input focus
-  themeColor: '#2563eb',
+  themeColor: '#6366f1',
 }
 
 export const metadata: Metadata = {

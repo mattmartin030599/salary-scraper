@@ -552,7 +552,7 @@ export default function PayCalculator() {
 
           {/* Take-home headline */}
           {result ? (
-            <div className="bg-brand-600 dark:bg-brand-700 rounded-2xl p-5 text-white shadow-sm">
+            <div className="bg-brand-gradient rounded-2xl p-5 text-white shadow-lift">
               <p className="text-sm font-medium opacity-80 mb-1">Annual take-home pay</p>
               <p className="text-4xl font-bold tracking-tight">{fmtAUD(result.net)}</p>
               <div className="mt-3 grid grid-cols-3 gap-3">
