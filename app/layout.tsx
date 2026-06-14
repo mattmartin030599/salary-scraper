@@ -64,6 +64,11 @@ export const metadata: Metadata = {
     title: 'Salary Scraper',
   },
   manifest: '/manifest.webmanifest',
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -74,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           suppressHydrationWarning
           dangerouslySetInnerHTML={{
-            __html: `(function(){var s=localStorage.getItem('theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches;if(s==='dark'||(s===null&&p))document.documentElement.classList.add('dark');})();`,
+            __html: `(function(){var s=localStorage.getItem('theme'),p=window.matchMedia('(prefers-color-scheme: dark').matches;if(s==='dark'||(s===null&&p))document.documentElement.classList.add('dark');})();`,
           }}
         />
       </head>
