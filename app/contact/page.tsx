@@ -41,13 +41,13 @@ export default function ContactPage() {
 
         {/* Header */}
         <div className="mb-12 text-center">
-          <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-3">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-200/70 dark:border-brand-900 bg-brand-50/80 dark:bg-brand-950/40 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-700 dark:text-brand-300 mb-4">
             Contact
-          </p>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 tracking-tight mb-3">
-            Get in touch
+          </span>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 tracking-tight mb-3">
+            Get in <span className="text-gradient">touch</span>
           </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 max-w-sm mx-auto leading-relaxed">
             Found a bug? Have a suggestion? We'd love to hear from you.
           </p>
         </div>
@@ -57,9 +57,9 @@ export default function ContactPage() {
           {/* Contact form */}
           <div className="sm:col-span-3">
             {sent ? (
-              <div className="flex flex-col items-center justify-center text-center py-12 px-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-sm">
-                <div className="w-12 h-12 rounded-full bg-brand-100 dark:bg-brand-950/60 flex items-center justify-center mb-4">
-                  <svg viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6 text-brand-600 dark:text-brand-400">
+              <div className="flex flex-col items-center justify-center text-center py-12 px-6 card-surface">
+                <div className="w-12 h-12 rounded-2xl bg-brand-gradient flex items-center justify-center mb-4 shadow-lift">
+                  <svg viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6 text-white">
                     <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd"/>
                   </svg>
                 </div>
@@ -79,7 +79,7 @@ export default function ContactPage() {
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-sm p-6 space-y-4"
+                className="card-surface p-6 space-y-4"
               >
                 <div>
                   <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">
@@ -141,10 +141,7 @@ export default function ContactPage() {
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  className="w-full bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2"
-                >
+                <button type="submit" className="btn-brand w-full py-3 text-sm">
                   <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
                     <path d="M3.105 2.288a.75.75 0 0 0-.826.95l1.414 4.926A1.5 1.5 0 0 0 5.135 9.25h6.115a.75.75 0 0 1 0 1.5H5.135a1.5 1.5 0 0 0-1.442 1.086l-1.414 4.926a.75.75 0 0 0 .826.95 28.897 28.897 0 0 0 15.293-7.155.75.75 0 0 0 0-1.114A28.897 28.897 0 0 0 3.105 2.288Z"/>
                   </svg>
@@ -156,7 +153,7 @@ export default function ContactPage() {
 
           {/* Direct contact card */}
           <div className="sm:col-span-2 space-y-4">
-            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-sm p-5">
+            <div className="card-surface p-5">
               <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-widest mb-3">
                 Direct email
               </h3>
@@ -172,7 +169,7 @@ export default function ContactPage() {
               </a>
             </div>
 
-            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-sm p-5">
+            <div className="card-surface p-5">
               <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-widest mb-3">
                 Response time
               </h3>

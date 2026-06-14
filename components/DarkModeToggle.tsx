@@ -43,13 +43,16 @@ export default function DarkModeToggle() {
   }
 
   // Avoid flash of wrong icon before we know the real preference
-  if (!mounted) return <div className="w-9 h-9" />
+  if (!mounted) return <div className="w-10 h-10" />
 
   return (
     <button
       onClick={toggle}
       aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
-      className="w-9 h-9 rounded-full flex items-center justify-center text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+      className="w-10 h-10 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300
+                 bg-white/70 dark:bg-gray-900/60 backdrop-blur border border-gray-200/70 dark:border-gray-800 shadow-soft
+                 hover:bg-white dark:hover:bg-gray-800 hover:text-brand-600 dark:hover:text-brand-400
+                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 transition-colors"
     >
       {dark ? (
         /* Sun — visible while in dark mode */

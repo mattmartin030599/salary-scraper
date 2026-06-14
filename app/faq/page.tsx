@@ -118,13 +118,13 @@ export default function FaqPage() {
 
         {/* Header */}
         <div className="mb-12 text-center">
-          <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-3">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-200/70 dark:border-brand-900 bg-brand-50/80 dark:bg-brand-950/40 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-700 dark:text-brand-300 mb-4">
             FAQ
-          </p>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 tracking-tight mb-3">
-            Frequently Asked Questions
+          </span>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 tracking-tight mb-3">
+            Frequently asked <span className="text-gradient">questions</span>
           </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 max-w-md mx-auto leading-relaxed">
             Everything about finding hidden salaries on Seek, how Salary Scraper works, and what the results mean.
           </p>
         </div>
@@ -140,7 +140,7 @@ export default function FaqPage() {
                 {section.items.map(item => (
                   <div
                     key={item.q}
-                    className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-5 shadow-sm"
+                    className="card-surface p-5"
                   >
                     <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">{item.q}</p>
                     <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{item.a}</p>
@@ -156,10 +156,7 @@ export default function FaqPage() {
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
             Ready to reveal a salary?
           </p>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors"
-          >
+          <Link href="/" className="btn-brand text-sm px-5 py-3">
             <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
               <path d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"/>
             </svg>

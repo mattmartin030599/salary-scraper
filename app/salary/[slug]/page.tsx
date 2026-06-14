@@ -141,8 +141,8 @@ export default async function SalaryRolePage(
           <p className="text-xs font-semibold text-brand-600 dark:text-brand-400 uppercase tracking-widest mb-2">
             {role.industry}
           </p>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 tracking-tight mb-3">
-            {role.title} Salary in Australia
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 tracking-tight mb-3">
+            {role.title} <span className="text-gradient">Salary</span> in Australia
           </h1>
           <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-xl">
             {role.description}
@@ -170,7 +170,7 @@ export default async function SalaryRolePage(
           <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4">
             Salary by experience level
           </h2>
-          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm">
+          <div className="card-surface overflow-hidden">
             <div className="hidden sm:grid grid-cols-3 gap-4 px-5 py-2.5 bg-gray-50 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800">
               <span className="text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wide">Experience level</span>
               <span className="text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wide">Australia</span>
@@ -209,7 +209,7 @@ export default async function SalaryRolePage(
           <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4">
             Estimated take-home pay (AU median)
           </h2>
-          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-5 shadow-sm">
+          <div className="card-surface p-5">
             <p className="text-xs text-gray-400 dark:text-gray-600 mb-4">
               Based on {fmt(role.auMedian)} gross, ATO 2024–25 individual tax rates, 2% Medicare levy. No salary packaging, no HECS.
             </p>
@@ -256,10 +256,7 @@ export default async function SalaryRolePage(
             These are broad market ranges. The actual salary on a specific Seek listing may be higher or lower.
             Paste any Seek job URL below to reveal the exact salary the employer entered — even when it&rsquo;s hidden.
           </p>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors"
-          >
+          <Link href="/" className="btn-brand text-sm px-5 py-3">
             <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
               <path d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"/>
             </svg>
@@ -287,7 +284,7 @@ export default async function SalaryRolePage(
                 a: `At the median salary of ${fmt(role.auMedian)}, take-home pay is approximately $${takeHome.annual.toLocaleString()} per year ($${takeHome.monthly.toLocaleString()} per month) after income tax and the 2% Medicare levy, based on ATO 2024–25 rates. This estimate excludes salary packaging and HECS repayments.`,
               },
             ].map((item) => (
-              <div key={item.q} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-5 shadow-sm">
+              <div key={item.q} className="card-surface p-5">
                 <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">{item.q}</p>
                 <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{item.a}</p>
               </div>
@@ -306,7 +303,7 @@ export default async function SalaryRolePage(
                 <Link
                   key={r.slug}
                   href={`/salary/${r.slug}`}
-                  className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-4 hover:border-brand-300 dark:hover:border-brand-800 hover:shadow-sm transition-all group"
+                  className="card-surface p-4 hover:-translate-y-0.5 hover:shadow-lift transition-all group"
                 >
                   <p className="text-xs text-gray-400 dark:text-gray-600 mb-1 group-hover:text-brand-500 transition-colors">{r.industry}</p>
                   <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-1">{r.title}</p>

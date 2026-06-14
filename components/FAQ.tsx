@@ -42,7 +42,7 @@ export default function FAQ() {
         {ITEMS.map((item, i) => (
           <div
             key={i}
-            className="bg-white dark:bg-gray-900/40 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm"
+            className="card-surface overflow-hidden"
           >
             <button
               onClick={() => setOpen(open === i ? null : i)}

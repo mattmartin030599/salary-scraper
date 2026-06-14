@@ -98,8 +98,11 @@ export default function Sidebar() {
       <button
         onClick={() => setOpen(true)}
         aria-label="Open menu"
-        className="fixed top-4 left-4 z-50 w-9 h-9 rounded-full flex items-center justify-center
-                   text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        className="fixed top-4 left-4 z-50 w-10 h-10 rounded-full flex items-center justify-center
+                   text-gray-600 dark:text-gray-300
+                   bg-white/70 dark:bg-gray-900/60 backdrop-blur border border-gray-200/70 dark:border-gray-800 shadow-soft
+                   hover:bg-white dark:hover:bg-gray-800 hover:text-brand-600 dark:hover:text-brand-400
+                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 transition-colors"
       >
         <svg viewBox="0 0 20 20" fill="currentColor" className="w-[18px] h-[18px]">
           <path fillRule="evenodd" d="M2 4.75A.75.75 0 0 1 2.75 4h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 4.75Zm0 10.5a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1-.75-.75ZM2 10a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 10Z" clipRule="evenodd"/>
