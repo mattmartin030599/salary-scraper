@@ -176,13 +176,13 @@ export default function HelpfulLinksPage() {
 
         {/* Header */}
         <div className="mb-12 text-center">
-          <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-3">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-200/70 dark:border-brand-900 bg-brand-50/80 dark:bg-brand-950/40 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-700 dark:text-brand-300 mb-4">
             Helpful links
-          </p>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 tracking-tight mb-3">
-            Resources for job seekers
+          </span>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100 tracking-tight mb-3">
+            Resources for <span className="text-gradient">job seekers</span>
           </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 max-w-md mx-auto leading-relaxed">
             Salary guides, comparison tools, job hunting advice, and tax calculators
             for Australia and New Zealand.
           </p>
@@ -192,14 +192,16 @@ export default function HelpfulLinksPage() {
         <div className="space-y-10">
           {SECTIONS.map(section => (
             <section key={section.title}>
-              <div className="flex items-center gap-2.5 mb-4">
-                <span className="text-brand-600 dark:text-brand-400">{section.icon}</span>
-                <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-brand-50 dark:bg-brand-950/50 text-brand-600 dark:text-brand-400 ring-1 ring-brand-100 dark:ring-brand-900">
+                  {section.icon}
+                </span>
+                <h2 className="text-base font-semibold text-gray-800 dark:text-gray-200">
                   {section.title}
                 </h2>
               </div>
 
-              <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm overflow-hidden divide-y divide-gray-100 dark:divide-gray-800">
+              <div className="card-surface overflow-hidden divide-y divide-gray-100 dark:divide-gray-800">
                 {section.links.map(link => (
                   <a
                     key={link.url}
